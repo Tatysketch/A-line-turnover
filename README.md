@@ -1,46 +1,28 @@
-📊 Organização das Bancadas - Linha A (P2M)
-Este projeto foi criado para organizar e rotacionar equipes na linha de operação P2M, garantindo que todos os colaboradores estejam distribuídos corretamente entre as bancadas fixas e rotativas, além das categorias e grupos de manutenção (GM).
+📊 Estratégia do Projeto - Organização das Bancadas (Linha A / P2M)
 
-🎯 Objetivo
-- Facilitar a visualização da distribuição das equipes na linha de produção.
-- Garantir que todos os 19 colaboradores estejam incluídos sem repetições.
-- Implementar um sistema de rotatividade automática para equilibrar as bancadas.
-- Melhorar a gestão da linha P2M, tornando mais claro quem está em cada posição.
+Este projeto foi desenvolvido como parte da estratégia de melhoria contínua da linha P2M, com o objetivo de trazer mais organização, transparência e eficiência para a distribuição das equipes.
 
-🛠️ Estrutura das Bancadas
-Lado Esquerdo (6 bancadas)
-- Bancada 1 (Fixa): Cris & Dulce
-- Bancada 2 (Fixa): Neuza & Thais Nunes
-- Bancada 3 a 6: Rotativas (equipes variáveis)
-Lado Direito (7 bancadas)
-- PESCA: 1 pessoa (nunca a Tati)
-- Categoria 1 a 3: Duplas rotativas
-- GM 1 a 3: Duplas rotativas
+🎯 Estratégia
+- Representação visual da linha: criar um layout digital que reflita fielmente a estrutura das bancadas.
+- Rotatividade planejada: implementar um sistema que permita girar equipes de forma equilibrada, evitando sobrecarga ou repetição.
+- Regras claras de alocação:
+- Bancadas fixas para duplas que não mudam.
+- PESCA com apenas uma pessoa, nunca a Tati.
+- Categorias e GM com duplas rotativas.
+- Inclusão total: garantir que todos os 19 colaboradores estejam contemplados na distribuição.
 
-👥 Colaboradores (19 pessoas)
-Cris, Dulce, Neuza, Thais Nunes, Karol Rocha, Tati, Kerollen, Andrea,
-Cleyton, Laura, Karol de Oliveira, Maria de Fátima, Tiago, Alex,
-Samuel, Sheila, Fernanda, Denise, Katia
+🚀 Objetivos
+- Organização: cada colaborador sabe exatamente sua posição na linha.
+- Transparência: todos visualizam a lógica de distribuição e rotação.
+- Eficiência: reduzir tempo de ajustes manuais e falhas de comunicação.
+- Flexibilidade: permitir adaptações futuras conforme a operação evolui.
 
-🚀 Funcionalidades
-- Distribuição automática das equipes nas bancadas.
-- Botão de rotatividade que gira as duplas de forma crescente da esquerda para a direita.
-- Evita duplicação de nomes e garante que todos participem.
-- Flexível para ajustes futuros (ex.: novas bancadas ou colaboradores).
-
-📈 Melhorias em andamento
-- Ajuste fino da lógica de rotatividade para evitar qualquer repetição.
-- Destaque visual para cada tipo de bancada (fixa, categoria, GM, pesca).
-- Possibilidade de exportar relatórios da distribuição.
-- Interface mais amigável para uso direto na operação.
-
-💡 Como usar
-- Clone este repositório:
-git clone https://github.com/seuusuario/nome-do-repo.git
-- Abra o arquivo index.html no navegador.
-- Clique em Rotacionar Equipes para girar as bancadas.
+📈 Próximos Passos
+- Refinar a lógica de rotação para maior equilíbrio.
+- Melhorar a interface visual com destaques por tipo de bancada.
+- Criar relatórios e histórico de rotações para análise da gestão.
 
 📌 Conclusão
-Este projeto é parte das melhorias contínuas da linha P2M, trazendo mais organização, transparência e eficiência para a operação.
+Este projeto é parte da estratégia de melhoria da linha P2M, trazendo clareza e eficiência para o trabalho em equipe e apoiando a evolução contínua da operação.
 
-👉 Quer que eu já monte esse README em Markdown pronto para colar no GitHub (com títulos, listas e blocos de código formatados), ou prefere que eu deixe em texto corrido para você adaptar?
+
