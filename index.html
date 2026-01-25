@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Linha A - Organização das Bancadas (P2M)</title>
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #f0f2f5; margin: 0; }
+    header { background-color: #0077cc; color: white; padding: 15px; text-align: center; font-size: 24px; font-weight: bold; }
+    .container { display: flex; justify-content: space-between; padding: 20px; }
+    .lado { width: 40%; }
+    .bancada { background-color: #fff; border: 2px solid #0077cc; border-radius: 8px; margin: 10px; padding: 15px; text-align: center; box-shadow: 2px 2px 6px rgba(0,0,0,0.1); }
+    .bancada h3 { margin: 5px 0; color: #0077cc; }
+    .esteira { width: 6%; background-color: #333; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; border-radius: 8px; box-shadow: 2px 2px 6px rgba(0,0,0,0.2); }
+    button { display: block; margin: 20px auto; padding: 10px 20px; background-color: #0077cc; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; }
+    button:hover { background-color: #005fa3; }
+    .nomes { font-size: 15px; margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <header>Linha A - Organização das Bancadas (P2M)</header>
+  <button onclick="rotacionar()">Rotacionar Equipes</button>
+  <div class="container">
+    <div class="lado" id="esquerdo"></div>
+    <div class="esteira">ESTEIRA</div>
+    <div class="lado" id="direito"></div>
+  </div>
+
+  <script>
+    // Fixas
+    const fixas = [
+      ["Cris","Dulce"],
+      ["Neuza","Thais Nunes"]
+    ];
+
+    // Rotativas (incluindo Katia)
+    let rotativas = [
+      ["Karol Rocha","Tati"],
+      ["Kerollen","Andrea"],
+      ["Cleyton","Laura"],
+      ["Karol de Oliveira","Maria de Fátima"],
+      ["Tiago","Alex"],
+      ["Samuel","Sheila"],
+      ["Fernanda","Denise"],
+      ["Katia",""]
+    ];
+
+    function montarLayout(lista) {
+      const esquerdo = document.getElementById("esquerdo");
+      const direito = document.getElementById("direito");
+      esquerdo.innerHTML = "";
+      direito.innerHTML = "";
+
+      // Esquerda: 2 fixas + 4 rotativas
+      fixas.forEach((dupla, i) => {
+        esquerdo.innerHTML += `<div class="bancada"><h3>Bancada ${i+1} (Fixa)</h3><div class="nomes">${dupla[0]} & ${dupla[1]}</div></div>`;
+      });
+      for (let i = 0; i < 4; i++) {
+        const dupla = lista[i];
+        esquerdo.innerHTML += `<div class="bancada"><h3>Bancada ${i+3}</h3><div class="nomes">${dupla[0]} ${dupla[1] ? "& " + dupla[1] : ""}</div></div>`;
+      }
+
+      // Direita: PESCA + 3 Categorias + 3 GM
+      let usados = new Set(fixas.flat());
+      lista.slice(0,4).forEach(d => { usados.add(d[0]); if(d[1]) usados.add(d[1]); });
+
+      // PESCA
+      let pessoaPesca = null;
+      for (let dupla of lista) {
+        if (!usados.has(dupla[0]) && dupla[0] !== "Tati") { pessoaPesca = dupla[0]; usados.add(pessoaPesca); break; }
+        if (dupla[1] && !usados.has(dupla[1]) && dupla[1] !== "Tati") { pessoaPesca = dupla[1]; usados.add(pessoaPesca); break; }
+      }
+      direito.innerHTML += `<div class="bancada"><h3>PESCA</h3><div class="nomes">${pessoaPesca || "—"}</div></div>`;
+
+      // Categorias
+      for (let i = 4; i < 7; i++) {
+        const dupla = lista[i];
+        direito.innerHTML += `<div class="bancada"><h3>Categoria ${i-3}</h3><div class="nomes">${dupla[0]} ${dupla[1] ? "& " + dupla[1] : ""}</div></div>`;
+      }
+
+      // GM
+      for (let i = 7; i < lista.length; i++) {
+        const dupla = lista[i];
+        direito.innerHTML += `<div class="bancada"><h3>GM ${i-6}</h3><div class="nomes">${dupla[0]} ${dupla[1] ? "& " + dupla[1] : ""}</div></div>`;
+      }
+    }
+
+    function rotacionar() {
+      // Rotatividade: gira a lista para frente
+      rotativas.push(rotativas.shift());
+      montarLayout(rotativas);
+    }
+
+    // Inicial
+    montarLayout(rotativas);
+  </script>
+</body>
+</html>
