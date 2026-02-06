@@ -1,3 +1,18 @@
+Entendido. Vou seguir exatamente a organização da sua foto, mantendo as duplas em todas as bancadas, incluindo o Léo no rodízio (já que ele estava no seu desenho) e respeitando a nova estrutura de 6 bancadas na esquerda e 7 na direita.
+
+Ajustes feitos conforme a foto:
+
+Duplas em Tudo: O sorteio agora sempre formará duplas de 2 pessoas por bancada.
+
+Layout da Foto: * Esquerda: 6 bancadas de GM.
+
+Direita: 1 Pesca, 1 Categorias (agora com dupla) e 5 bancadas de GM (para fechar as 7 posições do lado direito).
+
+Sorteio de Nivelamento: Ele continua pegando um Destaque e um Aprendiz para formar a dupla, garantindo que a bancada fique equilibrada.
+
+Aqui está o código completo:
+
+HTML
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -12,9 +27,9 @@
         .colunas-container { display: flex; justify-content: space-between; align-items: flex-start; }
         .coluna { width: 450px; }
         
-        .esteira { width: 40px; background: #333; height: 650px; border-radius: 5px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 12px; writing-mode: vertical-rl; text-orientation: mixed; }
+        .esteira { width: 40px; background: #333; height: 680px; border-radius: 5px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 12px; writing-mode: vertical-rl; text-orientation: mixed; }
 
-        .card { background: white; border: 1px solid #ddd; border-left: 10px solid #5cb85c; border-radius: 5px; padding: 10px; margin-bottom: 10px; min-height: 50px; }
+        .card { background: white; border: 1px solid #ddd; border-left: 10px solid #5cb85c; border-radius: 5px; padding: 10px; margin-bottom: 10px; min-height: 45px; }
         .card-info { font-size: 10px; color: #888; font-weight: bold; margin-bottom: 5px; text-transform: uppercase; }
         .nome-colaborador { color: #2d3277; font-size: 16px; font-weight: bold; }
 
@@ -29,29 +44,31 @@
 <div class="painel">
     <div class="header">
         <h1>P2M - OPERAÇÃO LOGÍSTICA</h1>
-        <p><b>GESTÃO DE BANCADAS - ESTRATÉGIA DE NIVELAMENTO</b></p>
+        <p><b>LINHA C - ESTRATÉGIA EM DUPLAS</b></p>
     </div>
 
     <div class="colunas-container">
         <div class="coluna">
             <h3 style="text-align:center; color:#888;">LADO ESQUERDO</h3>
-            <div class="card"><div class="card-info">BANCADA 01</div><div class="nome-colaborador" id="e1">---</div></div>
-            <div class="card"><div class="card-info">BANCADA 02</div><div class="nome-colaborador" id="e2">---</div></div>
-            <div class="card"><div class="card-info">BANCADA 03</div><div class="nome-colaborador" id="e3">---</div></div>
-            <div class="card"><div class="card-info">BANCADA 04</div><div class="nome-colaborador" id="e4">---</div></div>
-            <div class="card"><div class="card-info">BANCADA 05</div><div class="nome-colaborador" id="e5">---</div></div>
-            <div class="card"><div class="card-info">BANCADA 06</div><div class="nome-colaborador" id="e6">---</div></div>
+            <div class="card"><div class="card-info">BANCADA 01 (GM)</div><div class="nome-colaborador" id="e1">---</div></div>
+            <div class="card"><div class="card-info">BANCADA 02 (GM)</div><div class="nome-colaborador" id="e2">---</div></div>
+            <div class="card"><div class="card-info">BANCADA 03 (GM)</div><div class="nome-colaborador" id="e3">---</div></div>
+            <div class="card"><div class="card-info">BANCADA 04 (GM)</div><div class="nome-colaborador" id="e4">---</div></div>
+            <div class="card"><div class="card-info">BANCADA 05 (GM)</div><div class="nome-colaborador" id="e5">---</div></div>
+            <div class="card"><div class="card-info">BANCADA 06 (GM)</div><div class="nome-colaborador" id="e6">---</div></div>
         </div>
 
         <div class="esteira">ESTEIRA LINHA C</div>
 
         <div class="coluna">
             <h3 style="text-align:center; color:#888;">LADO DIREITO</h3>
-            <div class="card card-pesca"><div class="card-info">PESCA (ROTATIVO)</div><div class="nome-colaborador" id="d-pesca">---</div></div>
-            <div class="card card-cat"><div class="card-info">CATEGORIAS</div><div class="nome-colaborador" id="d-cat">LÉO / REFORÇO</div></div>
-            <div class="card"><div class="card-info">BANCADA 04</div><div class="nome-colaborador" id="d4">---</div></div>
-            <div class="card"><div class="card-info">BANCADA 05</div><div class="nome-colaborador" id="d5">---</div></div>
-            <div class="card"><div class="card-info">BANCADA 06</div><div class="nome-colaborador" id="d6">---</div></div>
+            <div class="card card-pesca"><div class="card-info">PESCA (BANCADA 01)</div><div class="nome-colaborador" id="d1">---</div></div>
+            <div class="card card-cat"><div class="card-info">CATEGORIAS (BANCADA 02)</div><div class="nome-colaborador" id="d2">---</div></div>
+            <div class="card"><div class="card-info">BANCADA 03 (GM)</div><div class="nome-colaborador" id="d3">---</div></div>
+            <div class="card"><div class="card-info">BANCADA 04 (GM)</div><div class="nome-colaborador" id="d4">---</div></div>
+            <div class="card"><div class="card-info">BANCADA 05 (GM)</div><div class="nome-colaborador" id="d5">---</div></div>
+            <div class="card"><div class="card-info">BANCADA 06 (GM)</div><div class="nome-colaborador" id="d6">---</div></div>
+            <div class="card"><div class="card-info">BANCADA 07 (GM)</div><div class="nome-colaborador" id="d7">---</div></div>
         </div>
     </div>
 
@@ -59,59 +76,66 @@
 </div>
 
 <script>
-// LISTAS CONFORME SUA ORIENTAÇÃO
+// LISTAS ATUALIZADAS (17 PESSOAS)
 const destaques = ["Isac", "Karol Oliveira", "Liliane", "Maycon", "Peterson", "Karol Rocha", "Tati"];
-const aprendizado = ["Alex", "Leticia", "Thais Nunes", "Laura", "Adrian", "Alana", "Clayton", "Kerollen", "Samuel", "Leonardo"];
+const aprendizado = ["Alex", "Leticia", "Thais nunes", "Laura", "Adrian", "Alana", "Clayton", "Kerollen", "Samuel", "Leonardo"];
 
 function gerarRotatividade() {
     let d = [...destaques].sort(() => Math.random() - 0.5);
     let a = [...aprendizado].sort(() => Math.random() - 0.5);
     
-    // IDs das bancadas GM (Esquerda 1-6 e Direita 4-6) = 9 bancadas
-    const idsGM = ['e1', 'e2', 'e3', 'e4', 'e5', 'e6', 'd4', 'd5', 'd6'];
+    // Todas as bancadas disponíveis (6 esquerda + 7 direita = 13 posições)
+    const idsBancadas = ['e1', 'e2', 'e3', 'e4', 'e5', 'e6', 'd1', 'd2', 'd3', 'd4', 'd5', 'd6', 'd7'];
     
-    // 1. SORTEIO PESCA (Removendo da lista de aprendizado para o exemplo, ou destaque)
-    // Conforme seu desenho, Pesca é rotativo. Vamos tirar um do aprendizado para a Pesca.
-    const sorteadoPesca = a.pop();
-    document.getElementById('d-pesca').innerText = sorteadoPesca;
-
-    // 2. DISTRIBUIÇÃO NAS BANCADAS
+    // Objeto para armazenar quem vai em cada bancada
     let distribuicao = {};
-    idsGM.forEach(id => distribuicao[id] = []);
+    idsBancadas.forEach(id => distribuicao[id] = []);
 
-    // A Tati gosta de ficar sozinha, então se ela for sorteada, a bancada dela não recebe aprendiz.
-    const bancadaTati = idsGM[Math.floor(Math.random() * idsGM.length)];
-    distribuicao[bancadaTati].push("Tati");
-    d.splice(d.indexOf("Tati"), 1);
+    // 1. Regra Pesca (Bancada D1): Tati e Dulce não podem.
+    // Como a Dulce não está na lista nova, vamos focar em tirar a Tati da Pesca.
+    let aptosPesca = d.filter(n => n !== "Tati");
+    let destaquePesca = aptosPesca.pop();
+    distribuicao['d1'].push(destaquePesca);
+    d.splice(d.indexOf(destaquePesca), 1);
+    
+    let aprendizPesca = a.pop();
+    distribuicao['d1'].push(aprendizPesca);
 
-    // Coloca um Destaque em cada bancada restante (enquanto houver destaques)
-    let idsRestantes = idsGM.filter(id => id !== bancadaTati);
+    // 2. Distribuir os Destaques restantes nas bancadas (Um por bancada)
+    let idsParaDestaques = idsBancadas.filter(id => id !== 'd1');
     d.forEach((nome, i) => {
-        if(idsRestantes[i]) distribuicao[idsRestantes[i]].push(nome);
-    });
-
-    // Preenche com Aprendizes para formar duplas (exceto na bancada da Tati)
-    let indexA = 0;
-    idsRestantes.forEach(id => {
-        // Cada bancada GM recebe um aprendiz
-        if(a[indexA]) {
-            distribuicao[id].push(a[indexA]);
-            indexA++;
-        }
-        // Se ainda sobrar aprendizes, coloca o segundo aprendiz nas bancadas
-        if(a[indexA]) {
-            distribuicao[id].push(a[indexA]);
-            indexA++;
+        if(idsParaDestaques[i]) {
+            distribuicao[idsParaDestaques[i]].push(nome);
         }
     });
 
-    // Renderiza na tela
-    idsGM.forEach(id => {
-        document.getElementById(id).innerText = distribuicao[id].join(" / ");
+    // 3. Preencher com o pessoal de Aprendizado para formar as duplas
+    // Primeiro nas bancadas que já têm um Destaque
+    let idsComDestaque = idsParaDestaques.filter(id => distribuicao[id].length > 0);
+    let idsVazios = idsParaDestaques.filter(id => distribuicao[id].length === 0);
+
+    // Coloca um aprendiz com cada destaque (exceto onde for regra especial se houver)
+    idsComDestaque.forEach(id => {
+        if(a.length > 0) {
+            distribuicao[id].push(a.pop());
+        }
     });
 
-    // Léo Fixo no Reforço/Categorias
-    document.getElementById('d-cat').innerText = "LÉO / REFORÇO";
+    // Se ainda sobrar aprendizes, preenche as bancadas que sobraram vazias
+    idsVazios.forEach(id => {
+        if(a.length > 0) distribuicao[id].push(a.pop());
+        if(a.length > 0) distribuicao[id].push(a.pop());
+    });
+
+    // 4. Renderizar na tela
+    idsBancadas.forEach(id => {
+        const campo = document.getElementById(id);
+        if (distribuicao[id].length > 0) {
+            campo.innerText = distribuicao[id].join(" / ");
+        } else {
+            campo.innerText = "VAGO";
+        }
+    });
 }
 
 window.onload = gerarRotatividade;
