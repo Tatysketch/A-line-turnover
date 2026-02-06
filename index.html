@@ -1,18 +1,3 @@
-Entendido. Vou seguir exatamente a organização da sua foto, mantendo as duplas em todas as bancadas, incluindo o Léo no rodízio (já que ele estava no seu desenho) e respeitando a nova estrutura de 6 bancadas na esquerda e 7 na direita.
-
-Ajustes feitos conforme a foto:
-
-Duplas em Tudo: O sorteio agora sempre formará duplas de 2 pessoas por bancada.
-
-Layout da Foto: * Esquerda: 6 bancadas de GM.
-
-Direita: 1 Pesca, 1 Categorias (agora com dupla) e 5 bancadas de GM (para fechar as 7 posições do lado direito).
-
-Sorteio de Nivelamento: Ele continua pegando um Destaque e um Aprendiz para formar a dupla, garantindo que a bancada fique equilibrada.
-
-Aqui está o código completo:
-
-HTML
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -76,65 +61,46 @@ HTML
 </div>
 
 <script>
-// LISTAS ATUALIZADAS (17 PESSOAS)
 const destaques = ["Isac", "Karol Oliveira", "Liliane", "Maycon", "Peterson", "Karol Rocha", "Tati"];
 const aprendizado = ["Alex", "Leticia", "Thais nunes", "Laura", "Adrian", "Alana", "Clayton", "Kerollen", "Samuel", "Leonardo"];
 
 function gerarRotatividade() {
+    // Clona as listas para manipular
     let d = [...destaques].sort(() => Math.random() - 0.5);
     let a = [...aprendizado].sort(() => Math.random() - 0.5);
     
-    // Todas as bancadas disponíveis (6 esquerda + 7 direita = 13 posições)
-    const idsBancadas = ['e1', 'e2', 'e3', 'e4', 'e5', 'e6', 'd1', 'd2', 'd3', 'd4', 'd5', 'd6', 'd7'];
+    // IDs das bancadas de GM (11 bancadas no total para rodízio)
+    const idsGM = ['e1', 'e2', 'e3', 'e4', 'e5', 'e6', 'd3', 'd4', 'd5', 'd6', 'd7'];
     
-    // Objeto para armazenar quem vai em cada bancada
     let distribuicao = {};
-    idsBancadas.forEach(id => distribuicao[id] = []);
+    idsGM.forEach(id => distribuicao[id] = []);
 
-    // 1. Regra Pesca (Bancada D1): Tati e Dulce não podem.
-    // Como a Dulce não está na lista nova, vamos focar em tirar a Tati da Pesca.
-    let aptosPesca = d.filter(n => n !== "Tati");
-    let destaquePesca = aptosPesca.pop();
-    distribuicao['d1'].push(destaquePesca);
-    d.splice(d.indexOf(destaquePesca), 1);
+    // 1. REGRA CATEGORIA (D2): Léo fixo e sozinho
+    document.getElementById('d2').innerText = "LEONARDO";
+    // Remove Leonardo da lista de sorteio para não duplicar
+    if (a.includes("Leonardo")) a.splice(a.indexOf("Leonardo"), 1);
+
+    // 2. REGRA PESCA (D1): Rotativo, 1 pessoa, Tati proibida
+    let todosParaPesca = [...d, ...a].filter(n => n !== "Tati" && n !== "Leonardo");
+    let sorteadoPesca = todosParaPesca[Math.floor(Math.random() * todosParaPesca.length)];
+    document.getElementById('d1').innerText = sorteadoPesca;
     
-    let aprendizPesca = a.pop();
-    distribuicao['d1'].push(aprendizPesca);
+    // Remove o sorteado da Pesca das listas de GM
+    if (d.includes(sorteadoPesca)) d.splice(d.indexOf(sorteadoPesca), 1);
+    if (a.includes(sorteadoPesca)) a.splice(a.indexOf(sorteadoPesca), 1);
 
-    // 2. Distribuir os Destaques restantes nas bancadas (Um por bancada)
-    let idsParaDestaques = idsBancadas.filter(id => id !== 'd1');
-    d.forEach((nome, i) => {
-        if(idsParaDestaques[i]) {
-            distribuicao[idsParaDestaques[i]].push(nome);
-        }
+    // 3. DISTRIBUIÇÃO GM (15 pessoas para 11 bancadas)
+    let todosRestantes = [...d, ...a].sort(() => Math.random() - 0.5);
+
+    // Distribui as 15 pessoas de forma que todas as bancadas sejam preenchidas
+    todosRestantes.forEach((nome, index) => {
+        let idAlvo = idsGM[index % idsGM.length];
+        distribuicao[idAlvo].push(nome);
     });
 
-    // 3. Preencher com o pessoal de Aprendizado para formar as duplas
-    // Primeiro nas bancadas que já têm um Destaque
-    let idsComDestaque = idsParaDestaques.filter(id => distribuicao[id].length > 0);
-    let idsVazios = idsParaDestaques.filter(id => distribuicao[id].length === 0);
-
-    // Coloca um aprendiz com cada destaque (exceto onde for regra especial se houver)
-    idsComDestaque.forEach(id => {
-        if(a.length > 0) {
-            distribuicao[id].push(a.pop());
-        }
-    });
-
-    // Se ainda sobrar aprendizes, preenche as bancadas que sobraram vazias
-    idsVazios.forEach(id => {
-        if(a.length > 0) distribuicao[id].push(a.pop());
-        if(a.length > 0) distribuicao[id].push(a.pop());
-    });
-
-    // 4. Renderizar na tela
-    idsBancadas.forEach(id => {
-        const campo = document.getElementById(id);
-        if (distribuicao[id].length > 0) {
-            campo.innerText = distribuicao[id].join(" / ");
-        } else {
-            campo.innerText = "VAGO";
-        }
+    // 4. RENDERIZAR NAS BANCADAS GM
+    idsGM.forEach(id => {
+        document.getElementById(id).innerText = distribuicao[id].join(" / ");
     });
 }
 
