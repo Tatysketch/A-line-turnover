@@ -1,4 +1,4 @@
-📊 Estratégia do Projeto - Organização das Bancadas (Linha A / P2M)
+📊 Estratégia do Projeto - Organização das Bancadas (Linha C / P2M)
 
 Este projeto foi desenvolvido como parte da estratégia de melhoria contínua da linha P2M, com o objetivo de trazer mais organização, transparência e eficiência para a distribuição das equipes.
 
