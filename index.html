@@ -1,97 +1,120 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <title>Linha A - Organização das Bancadas (P2M)</title>
-  <style>
-    body { font-family: Arial, sans-serif; background-color: #f0f2f5; margin: 0; }
-    header { background-color: #0077cc; color: white; padding: 15px; text-align: center; font-size: 24px; font-weight: bold; }
-    .container { display: flex; justify-content: space-between; padding: 20px; }
-    .lado { width: 40%; }
-    .bancada { background-color: #fff; border: 2px solid #0077cc; border-radius: 8px; margin: 10px; padding: 15px; text-align: center; box-shadow: 2px 2px 6px rgba(0,0,0,0.1); }
-    .bancada h3 { margin: 5px 0; color: #0077cc; }
-    .esteira { width: 6%; background-color: #333; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; border-radius: 8px; box-shadow: 2px 2px 6px rgba(0,0,0,0.2); }
-    button { display: block; margin: 20px auto; padding: 10px 20px; background-color: #0077cc; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; }
-    button:hover { background-color: #005fa3; }
-    .nomes { font-size: 15px; margin-top: 8px; }
-  </style>
+    <meta charset="UTF-8">
+    <title>P2M - OPERAÇÃO LOGÍSTICA</title>
+    <style>
+        body { font-family: sans-serif; background-color: #ffffff; margin: 0; padding: 10px; display: flex; justify-content: center; }
+        .painel { background: white; width: 1000px; border-radius: 10px; padding: 20px; border: 1px solid #ddd; }
+        .header { text-align: center; border-bottom: 2px solid #2d3277; margin-bottom: 20px; padding-bottom: 10px; }
+        .header h1 { color: #2d3277; margin: 0; font-size: 24px; }
+        
+        .colunas-container { display: flex; justify-content: space-between; align-items: flex-start; }
+        .coluna { width: 450px; }
+        
+        .esteira { width: 40px; background: #333; height: 650px; border-radius: 5px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 12px; writing-mode: vertical-rl; text-orientation: mixed; }
+
+        .card { background: white; border: 1px solid #ddd; border-left: 10px solid #5cb85c; border-radius: 5px; padding: 10px; margin-bottom: 10px; min-height: 50px; }
+        .card-info { font-size: 10px; color: #888; font-weight: bold; margin-bottom: 5px; text-transform: uppercase; }
+        .nome-colaborador { color: #2d3277; font-size: 16px; font-weight: bold; }
+
+        .card-pesca { border-left: 10px solid #2d3277; }
+        .card-cat { border-left: 10px solid #f0ad4e; }
+
+        button { background: #2d3277; color: white; width: 100%; padding: 15px; border: none; border-radius: 5px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+    </style>
 </head>
 <body>
-  <header>Linha A - Organização das Bancadas (P2M)</header>
-  <button onclick="rotacionar()">Rotacionar Equipes</button>
-  <div class="container">
-    <div class="lado" id="esquerdo"></div>
-    <div class="esteira">ESTEIRA</div>
-    <div class="lado" id="direito"></div>
-  </div>
 
-  <script>
-    // Fixas
-    const fixas = [
-      ["Cris","Dulce"],
-      ["Neuza","Thais Nunes"]
-    ];
+<div class="painel">
+    <div class="header">
+        <h1>P2M - OPERAÇÃO LOGÍSTICA</h1>
+        <p><b>GESTÃO DE BANCADAS - ESTRATÉGIA DE NIVELAMENTO</b></p>
+    </div>
 
-    // Rotativas (incluindo Katia)
-    let rotativas = [
-      ["Karol Rocha","Tati"],
-      ["Kerollen","Andrea"],
-      ["Cleyton","Laura"],
-      ["Karol de Oliveira","Maria de Fátima"],
-      ["Tiago","Alex"],
-      ["Samuel","Sheila"],
-      ["Fernanda","Denise"],
-      ["Katia",""]
-    ];
+    <div class="colunas-container">
+        <div class="coluna">
+            <h3 style="text-align:center; color:#888;">LADO ESQUERDO</h3>
+            <div class="card"><div class="card-info">BANCADA 01</div><div class="nome-colaborador" id="e1">---</div></div>
+            <div class="card"><div class="card-info">BANCADA 02</div><div class="nome-colaborador" id="e2">---</div></div>
+            <div class="card"><div class="card-info">BANCADA 03</div><div class="nome-colaborador" id="e3">---</div></div>
+            <div class="card"><div class="card-info">BANCADA 04</div><div class="nome-colaborador" id="e4">---</div></div>
+            <div class="card"><div class="card-info">BANCADA 05</div><div class="nome-colaborador" id="e5">---</div></div>
+            <div class="card"><div class="card-info">BANCADA 06</div><div class="nome-colaborador" id="e6">---</div></div>
+        </div>
 
-    function montarLayout(lista) {
-      const esquerdo = document.getElementById("esquerdo");
-      const direito = document.getElementById("direito");
-      esquerdo.innerHTML = "";
-      direito.innerHTML = "";
+        <div class="esteira">ESTEIRA LINHA C</div>
 
-      // Esquerda: 2 fixas + 4 rotativas
-      fixas.forEach((dupla, i) => {
-        esquerdo.innerHTML += `<div class="bancada"><h3>Bancada ${i+1} (Fixa)</h3><div class="nomes">${dupla[0]} & ${dupla[1]}</div></div>`;
-      });
-      for (let i = 0; i < 4; i++) {
-        const dupla = lista[i];
-        esquerdo.innerHTML += `<div class="bancada"><h3>Bancada ${i+3}</h3><div class="nomes">${dupla[0]} ${dupla[1] ? "& " + dupla[1] : ""}</div></div>`;
-      }
+        <div class="coluna">
+            <h3 style="text-align:center; color:#888;">LADO DIREITO</h3>
+            <div class="card card-pesca"><div class="card-info">PESCA (ROTATIVO)</div><div class="nome-colaborador" id="d-pesca">---</div></div>
+            <div class="card card-cat"><div class="card-info">CATEGORIAS</div><div class="nome-colaborador" id="d-cat">LÉO / REFORÇO</div></div>
+            <div class="card"><div class="card-info">BANCADA 04</div><div class="nome-colaborador" id="d4">---</div></div>
+            <div class="card"><div class="card-info">BANCADA 05</div><div class="nome-colaborador" id="d5">---</div></div>
+            <div class="card"><div class="card-info">BANCADA 06</div><div class="nome-colaborador" id="d6">---</div></div>
+        </div>
+    </div>
 
-      // Direita: PESCA + 3 Categorias + 3 GM
-      let usados = new Set(fixas.flat());
-      lista.slice(0,4).forEach(d => { usados.add(d[0]); if(d[1]) usados.add(d[1]); });
+    <button onclick="gerarRotatividade()">Girar Rotatividade 🔄</button>
+</div>
 
-      // PESCA
-      let pessoaPesca = null;
-      for (let dupla of lista) {
-        if (!usados.has(dupla[0]) && dupla[0] !== "Tati") { pessoaPesca = dupla[0]; usados.add(pessoaPesca); break; }
-        if (dupla[1] && !usados.has(dupla[1]) && dupla[1] !== "Tati") { pessoaPesca = dupla[1]; usados.add(pessoaPesca); break; }
-      }
-      direito.innerHTML += `<div class="bancada"><h3>PESCA</h3><div class="nomes">${pessoaPesca || "—"}</div></div>`;
+<script>
+// LISTAS CONFORME SUA ORIENTAÇÃO
+const destaques = ["Isac", "Karol Oliveira", "Liliane", "Maycon", "Peterson", "Karol Rocha", "Tati"];
+const aprendizado = ["Alex", "Leticia", "Thais Nunes", "Laura", "Adrian", "Alana", "Clayton", "Kerollen", "Samuel", "Leonardo"];
 
-      // Categorias
-      for (let i = 4; i < 7; i++) {
-        const dupla = lista[i];
-        direito.innerHTML += `<div class="bancada"><h3>Categoria ${i-3}</h3><div class="nomes">${dupla[0]} ${dupla[1] ? "& " + dupla[1] : ""}</div></div>`;
-      }
+function gerarRotatividade() {
+    let d = [...destaques].sort(() => Math.random() - 0.5);
+    let a = [...aprendizado].sort(() => Math.random() - 0.5);
+    
+    // IDs das bancadas GM (Esquerda 1-6 e Direita 4-6) = 9 bancadas
+    const idsGM = ['e1', 'e2', 'e3', 'e4', 'e5', 'e6', 'd4', 'd5', 'd6'];
+    
+    // 1. SORTEIO PESCA (Removendo da lista de aprendizado para o exemplo, ou destaque)
+    // Conforme seu desenho, Pesca é rotativo. Vamos tirar um do aprendizado para a Pesca.
+    const sorteadoPesca = a.pop();
+    document.getElementById('d-pesca').innerText = sorteadoPesca;
 
-      // GM
-      for (let i = 7; i < lista.length; i++) {
-        const dupla = lista[i];
-        direito.innerHTML += `<div class="bancada"><h3>GM ${i-6}</h3><div class="nomes">${dupla[0]} ${dupla[1] ? "& " + dupla[1] : ""}</div></div>`;
-      }
-    }
+    // 2. DISTRIBUIÇÃO NAS BANCADAS
+    let distribuicao = {};
+    idsGM.forEach(id => distribuicao[id] = []);
 
-    function rotacionar() {
-      // Rotatividade: gira a lista para frente
-      rotativas.push(rotativas.shift());
-      montarLayout(rotativas);
-    }
+    // A Tati gosta de ficar sozinha, então se ela for sorteada, a bancada dela não recebe aprendiz.
+    const bancadaTati = idsGM[Math.floor(Math.random() * idsGM.length)];
+    distribuicao[bancadaTati].push("Tati");
+    d.splice(d.indexOf("Tati"), 1);
 
-    // Inicial
-    montarLayout(rotativas);
-  </script>
+    // Coloca um Destaque em cada bancada restante (enquanto houver destaques)
+    let idsRestantes = idsGM.filter(id => id !== bancadaTati);
+    d.forEach((nome, i) => {
+        if(idsRestantes[i]) distribuicao[idsRestantes[i]].push(nome);
+    });
+
+    // Preenche com Aprendizes para formar duplas (exceto na bancada da Tati)
+    let indexA = 0;
+    idsRestantes.forEach(id => {
+        // Cada bancada GM recebe um aprendiz
+        if(a[indexA]) {
+            distribuicao[id].push(a[indexA]);
+            indexA++;
+        }
+        // Se ainda sobrar aprendizes, coloca o segundo aprendiz nas bancadas
+        if(a[indexA]) {
+            distribuicao[id].push(a[indexA]);
+            indexA++;
+        }
+    });
+
+    // Renderiza na tela
+    idsGM.forEach(id => {
+        document.getElementById(id).innerText = distribuicao[id].join(" / ");
+    });
+
+    // Léo Fixo no Reforço/Categorias
+    document.getElementById('d-cat').innerText = "LÉO / REFORÇO";
+}
+
+window.onload = gerarRotatividade;
+</script>
 </body>
 </html>
