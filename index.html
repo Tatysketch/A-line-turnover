@@ -1,4 +1,3 @@
-HTML
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -48,8 +47,8 @@ HTML
 
         <div class="coluna">
             <h3 style="text-align:center; color:#888;">LADO DIREITO</h3>
-            <div class="card card-pesca"><div class="card-info">PESCA (BANCADA 01)</div><div class="nome-colaborador" id="d1">---</div></div>
-            <div class="card card-cat"><div class="card-info">CATEGORIAS (BANCADA 02)</div><div class="nome-colaborador" id="d2">---</div></div>
+            <div class="card card-pesca"><div class="card-info">PESCA (BANCADA 01)</div><div class="nome-colaborador" id="d1">SAMUEL</div></div>
+            <div class="card card-cat"><div class="card-info">CATEGORIAS (BANCADA 02)</div><div class="nome-colaborador" id="d2">LEONARDO</div></div>
             <div class="card"><div class="card-info">BANCADA 03 (GM)</div><div class="nome-colaborador" id="d3">---</div></div>
             <div class="card"><div class="card-info">BANCADA 04 (GM)</div><div class="nome-colaborador" id="d4">---</div></div>
             <div class="card"><div class="card-info">BANCADA 05 (GM)</div><div class="nome-colaborador" id="d5">---</div></div>
@@ -62,7 +61,6 @@ HTML
 </div>
 
 <script>
-// LISTA ATUALIZADA COM TODOS OS 19 COLABORADORES
 const destaques = ["Isac", "Karol Oliveira", "Liliane", "Maycon", "Peterson", "Karol Rocha", "Tati"];
 const aprendizado = ["Alex", "Leticia", "Thais nunes", "Laura", "Adrian", "Alana", "Clayton", "Kerollen", "Samuel", "Leonardo"];
 
@@ -74,20 +72,15 @@ function gerarRotatividade() {
     let distribuicao = {};
     idsGM.forEach(id => distribuicao[id] = []);
 
-    // 1. REGRA CATEGORIA (D2): Léo fixo e sozinho
+    // 1. FIXO CATEGORIA: Léo
     document.getElementById('d2').innerText = "LEONARDO";
     if (a.includes("Leonardo")) a.splice(a.indexOf("Leonardo"), 1);
 
-    // 2. REGRA PESCA (D1): Rotativo, 1 pessoa, Tati proibida
-    let todosParaPesca = [...d, ...a].filter(n => n !== "Tati" && n !== "Leonardo");
-    let sorteadoPesca = todosParaPesca[Math.floor(Math.random() * todosParaPesca.length)];
-    document.getElementById('d1').innerText = sorteadoPesca;
-    
-    if (d.includes(sorteadoPesca)) d.splice(d.indexOf(sorteadoPesca), 1);
-    if (a.includes(sorteadoPesca)) a.splice(a.indexOf(sorteadoPesca), 1);
+    // 2. FIXO PESCA: Samuel (Conforme sua solicitação fixa)
+    document.getElementById('d1').innerText = "SAMUEL";
+    if (a.includes("Samuel")) a.splice(a.indexOf("Samuel"), 1);
 
-    // 3. DISTRIBUIÇÃO GM (17 pessoas para 11 bancadas)
-    // Garantimos que todos os destaques entrem primeiro em bancadas diferentes
+    // 3. DISTRIBUIÇÃO GM (Restante da equipe)
     let todosRestantes = [...d, ...a].sort(() => Math.random() - 0.5);
 
     todosRestantes.forEach((nome, index) => {
@@ -95,7 +88,6 @@ function gerarRotatividade() {
         distribuicao[idAlvo].push(nome);
     });
 
-    // 4. RENDERIZAR NAS BANCADAS GM
     idsGM.forEach(id => {
         document.getElementById(id).innerText = distribuicao[id].join(" / ");
     });
