@@ -29,7 +29,7 @@
 <div class="painel">
     <div class="header">
         <h1>P2M - OPERAÇÃO LOGÍSTICA</h1>
-        <p><b>LINHA C - ESTRATÉGIA EM DUPLAS</b></p>
+        <p><b>ESTRATÉGIA DE NIVELAMENTO (GRUPO A + GRUPO B)</b></p>
     </div>
 
     <div class="colunas-container">
@@ -61,35 +61,52 @@
 </div>
 
 <script>
-const destaques = ["Isac", "Karol Oliveira", "Liliane", "Maycon", "Peterson", "Karol Rocha", "Tati"];
-const aprendizado = ["Alex", "Leticia", "Thais nunes", "Laura", "Adrian", "Alana", "Clayton", "Kerollen", "Samuel", "Leonardo"];
+// LISTAS OFICIAIS
+const grupoA = ["Isac", "Karol Oliveira", "Liliane", "Maycon", "Peterson", "Karol Rocha", "Tati"];
+const grupoB = ["Alex", "Leticia", "Thais nunes", "Laura", "Adrian", "Alana", "Clayton", "Kerollen", "Samuel", "Leonardo"];
 
 function gerarRotatividade() {
-    let d = [...destaques].sort(() => Math.random() - 0.5);
-    let a = [...aprendizado].sort(() => Math.random() - 0.5);
+    // 1. Limpeza e Fixos
+    document.getElementById('d1').innerText = "SAMUEL";
+    document.getElementById('d2').innerText = "LEONARDO";
+
+    // 2. Preparar listas removendo os fixos
+    let poolA = [...grupoA].sort(() => Math.random() - 0.5);
+    let poolB = [...grupoB].filter(n => n !== "Samuel" && n !== "Leonardo").sort(() => Math.random() - 0.5);
     
     const idsGM = ['e1', 'e2', 'e3', 'e4', 'e5', 'e6', 'd3', 'd4', 'd5', 'd6', 'd7'];
     let distribuicao = {};
     idsGM.forEach(id => distribuicao[id] = []);
 
-    // 1. FIXO CATEGORIA: Léo
-    document.getElementById('d2').innerText = "LEONARDO";
-    if (a.includes("Leonardo")) a.splice(a.indexOf("Leonardo"), 1);
-
-    // 2. FIXO PESCA: Samuel (Conforme sua solicitação fixa)
-    document.getElementById('d1').innerText = "SAMUEL";
-    if (a.includes("Samuel")) a.splice(a.indexOf("Samuel"), 1);
-
-    // 3. DISTRIBUIÇÃO GM (Restante da equipe)
-    let todosRestantes = [...d, ...a].sort(() => Math.random() - 0.5);
-
-    todosRestantes.forEach((nome, index) => {
-        let idAlvo = idsGM[index % idsGM.length];
-        distribuicao[idAlvo].push(nome);
+    // 3. Casamento A + B (Garante um de cada grupo na bancada)
+    // Primeiro, distribui o Grupo A nas bancadas
+    idsGM.forEach((id, index) => {
+        if (poolA.length > 0) {
+            distribuicao[id].push(poolA.pop());
+        }
     });
 
+    // Depois, distribui o Grupo B nas bancadas para formar as duplas
+    // Como o Grupo B é maior, ele vai preencher as bancadas do Grupo A e as que sobraram
+    idsGM.forEach((id) => {
+        if (poolB.length > 0) {
+            distribuicao[id].push(poolB.pop());
+        }
+    });
+
+    // Se ainda sobrar alguém do poolB (devido ao número de pessoas), distribui novamente
+    if (poolB.length > 0) {
+        idsGM.forEach((id) => {
+            if (poolB.length > 0) {
+                distribuicao[id].push(poolB.pop());
+            }
+        });
+    }
+
+    // 4. Renderização Final
     idsGM.forEach(id => {
-        document.getElementById(id).innerText = distribuicao[id].join(" / ");
+        const campo = document.getElementById(id);
+        campo.innerText = distribuicao[id].join(" / ") || "VAGO";
     });
 }
 
