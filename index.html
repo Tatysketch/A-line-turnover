@@ -62,42 +62,39 @@
 
 <script>
 const grupoA = ["Isac", "Karol Oliveira", "Liliane", "Maycon", "Peterson", "Karol Rocha", "Tati"];
-const grupoB = ["Alex", "Leticia", "Thais nunes", "Laura", "Adrian", "Alana", "Clayton", "Kerollen", // Samuel e Leonardo removidos para serem fixos
+const grupoB = ["Alex", "Leticia", "Thais nunes", "Laura", "Adrian", "Alana", "Clayton", "Kerollen"]; // Anderson removido
 
 function gerarRotatividade() {
     // 1. Manter Fixos
     document.getElementById('d1').innerText = "SAMUEL";
     document.getElementById('d2').innerText = "LEONARDO";
 
-    // 2. Preparar listas de sorteio (Total 16 pessoas para 11 bancadas de GM)
+    // 2. Preparar listas de sorteio
     let poolA = [...grupoA].sort(() => Math.random() - 0.5);
     let poolB = [...grupoB].sort(() => Math.random() - 0.5);
     
-    // Lista de todas as bancadas de GM em ordem crescente
     const idsGM = ['e1', 'e2', 'e3', 'e4', 'e5', 'e6', 'd3', 'd4', 'd5', 'd6', 'd7'];
     
     let distribuicao = {};
     idsGM.forEach(id => distribuicao[id] = []);
 
-    // 3. DISTRIBUIÇÃO OBRIGATÓRIA (Evita bancadas vazias)
-    // Primeiro: Distribui todo o Grupo A
+    // 3. DISTRIBUIÇÃO
+    // Primeiro: Grupo A
     poolA.forEach((nome, index) => {
         let idAlvo = idsGM[index % idsGM.length];
         distribuicao[idAlvo].push(nome);
     });
 
-    // Segundo: Distribui o Grupo B para completar as bancadas e formar duplas
-    // Começamos o Grupo B nas bancadas que ainda estão vazias ou precisam de reforço
     let todosRestantes = [...poolB];
     
-    // Para garantir que as 11 bancadas fiquem cheias, primeiro preenchemos as que o Grupo A não ocupou
+    // Segundo: Garante que bancadas vazias recebam alguém do Grupo B
     idsGM.forEach((id) => {
         if (distribuicao[id].length === 0 && todosRestantes.length > 0) {
             distribuicao[id].push(todosRestantes.pop());
         }
     });
 
-    // Agora, o que sobrou do Grupo B, distribuímos como dupla nas bancadas já ocupadas
+    // Terceiro: Distribui o que sobrou do B como duplas
     let i = 0;
     while (todosRestantes.length > 0) {
         let idAlvo = idsGM[i % idsGM.length];
@@ -105,7 +102,7 @@ function gerarRotatividade() {
         i++;
     }
 
-    // 4. Renderização Final
+    // 4. Renderização
     idsGM.forEach(id => {
         document.getElementById(id).innerText = distribuicao[id].join(" / ");
     });
@@ -115,4 +112,3 @@ window.onload = gerarRotatividade;
 </script>
 </body>
 </html>
-
