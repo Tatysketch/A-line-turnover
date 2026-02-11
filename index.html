@@ -23,7 +23,7 @@
 <div class="painel">
     <div class="header">
         <h1>P2M - OPERAÇÃO LOGÍSTICA</h1>
-        <p><b>GESTÃO DE BANCADAS - CRESCENTE E SEM VAGAS</b></p>
+        <p><b>GESTÃO DE BANCADAS - SEQUÊNCIA LADO DIREITO AJUSTADA</b></p>
     </div>
     <div class="colunas-container">
         <div class="coluna">
@@ -39,12 +39,11 @@
         <div class="coluna">
             <h3 style="text-align:center; color:#888;">LADO DIREITO</h3>
             <div class="card card-pesca"><div class="card-info">BANCADA 01 (PESCA)</div><div class="nome-colaborador" id="d1">SAMUEL</div></div>
-            <div class="card card-cat"><div class="card-info">BANCADA 02 (CATEGORIAS)</div><div class="nome-colaborador" id="d2">LEONARDO</div></div>
-            <div class="card"><div class="card-info">BANCADA 03 (GM)</div><div class="nome-colaborador" id="d3">---</div></div>
-            <div class="card"><div class="card-info">BANCADA 04 (GM)</div><div class="nome-colaborador" id="d4">---</div></div>
+            <div class="card card-cat"><div class="card-info">BANCADA 02 (CATEGORIA)</div><div class="nome-colaborador" id="d2">LEONARDO</div></div>
+            <div class="card card-cat"><div class="card-info">BANCADA 03 (CATEGORIA)</div><div class="nome-colaborador" id="d3">---</div></div>
+            <div class="card card-cat"><div class="card-info">BANCADA 04 (CATEGORIA)</div><div class="nome-colaborador" id="d4">---</div></div>
             <div class="card"><div class="card-info">BANCADA 05 (GM)</div><div class="nome-colaborador" id="d5">---</div></div>
             <div class="card"><div class="card-info">BANCADA 06 (GM)</div><div class="nome-colaborador" id="d6">---</div></div>
-            <div class="card"><div class="card-info">BANCADA 07 (GM)</div><div class="nome-colaborador" id="d7">---</div></div>
         </div>
     </div>
     <button onclick="gerarRotatividade()">Girar Rotatividade 🔄</button>
@@ -59,13 +58,15 @@ function gerarRotatividade() {
 
     let poolA = [...grupoA].sort(() => Math.random() - 0.5);
     let poolB = [...grupoB].sort(() => Math.random() - 0.5);
-    const idsGM = ['e1', 'e2', 'e3', 'e4', 'e5', 'e6', 'd3', 'd4', 'd5', 'd6', 'd7'];
+    
+    // IDs atualizados conforme nova sequência do lado direito (d3 e d4 são CAT, d5 e d6 são GM)
+    const idsSorteaveis = ['e1', 'e2', 'e3', 'e4', 'e5', 'e6', 'd3', 'd4', 'd5', 'd6'];
     
     let distribuicao = {};
-    idsGM.forEach(id => distribuicao[id] = []);
+    idsSorteaveis.forEach(id => distribuicao[id] = []);
 
-    // 1. DISTRIBUIÇÃO GARANTIDA: Primeiro, garante 1 pessoa em CADA uma das 11 bancadas
-    idsGM.forEach((id) => {
+    // 1. Preenchimento obrigatório para não haver bancada vazia
+    idsSorteaveis.forEach((id) => {
         if (poolA.length > 0) {
             distribuicao[id].push(poolA.pop());
         } else if (poolB.length > 0) {
@@ -73,15 +74,15 @@ function gerarRotatividade() {
         }
     });
 
-    // 2. DUPLAS: Agora usa o que sobrou para formar as duplas onde já tem gente
+    // 2. Distribuição das sobras para formar as duplas
     let sobra = [...poolA, ...poolB].sort(() => Math.random() - 0.5);
     sobra.forEach((nome, index) => {
-        let idAlvo = idsGM[index % idsGM.length];
+        let idAlvo = idsSorteaveis[index % idsSorteaveis.length];
         distribuicao[idAlvo].push(nome);
     });
 
-    // 3. RENDERIZAÇÃO: Escreve os nomes nas bancadas
-    idsGM.forEach(id => {
+    // 3. Renderização
+    idsSorteaveis.forEach(id => {
         document.getElementById(id).innerText = distribuicao[id].join(" / ");
     });
 }
