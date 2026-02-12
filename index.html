@@ -1,53 +1,58 @@
-HTML
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <title>P2M - OPERAÇÃO LOGÍSTICA</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background-color: #fcfcfc; margin: 0; padding: 10px; display: flex; justify-content: center; }
-        .painel { background: white; width: 950px; border-radius: 8px; padding: 20px; border: 1px solid #eee; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; margin: 0; padding: 10px; display: flex; justify-content: center; }
+        .painel { background: white; width: 950px; border-radius: 12px; padding: 25px; border: 1px solid #dcdcdc; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         
-        .header { text-align: center; border-bottom: 2px solid #f0f0f0; margin-bottom: 20px; padding-bottom: 15px; }
-        .header h1 { color: #2d3277; margin: 0; font-size: 24px; font-weight: bold; letter-spacing: 1px; }
-        .info-topo { display: flex; justify-content: space-between; margin-top: 15px; color: #666; font-size: 14px; padding: 0 10px; }
-        .tl-destaque { color: #333; font-weight: 800; text-transform: uppercase; }
-        #relogio { font-family: monospace; font-weight: bold; color: #444; }
+        /* Cabeçalho Corporativo com Logo */
+        .header-container { display: flex; align-items: center; justify-content: center; gap: 20px; border-bottom: 2px solid #2d3277; padding-bottom: 15px; margin-bottom: 20px; position: relative; }
+        .logo-meli { width: 60px; height: auto; }
+        .header-titles h1 { color: #2d3277; margin: 0; font-size: 26px; font-weight: 800; text-transform: uppercase; }
+        
+        .info-topo { display: flex; justify-content: space-between; margin-top: 10px; color: #444; font-size: 15px; font-weight: 600; }
+        .tl-nome { color: #2d3277; border-bottom: 2px solid #ffdb00; } /* Detalhe em amarelo meli */
+        #relogio { background: #2d3277; color: white; padding: 3px 10px; border-radius: 4px; font-family: monospace; }
 
-        .colunas-container { display: flex; justify-content: space-between; gap: 20px; }
+        .colunas-container { display: flex; justify-content: space-between; gap: 15px; }
         .coluna { flex: 1; }
         
-        .esteira { width: 30px; background: #f0f0f0; border: 1px solid #e0e0e0; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #999; font-weight: bold; font-size: 11px; writing-mode: vertical-rl; text-orientation: mixed; }
+        .esteira { width: 35px; background: #444; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 11px; writing-mode: vertical-rl; text-orientation: mixed; box-shadow: inset 0 0 8px #000; }
 
-        /* Estilo dos Cards com Cores Pastéis */
-        .card { background: white; border: 1px solid #f0f0f0; border-radius: 4px; padding: 10px; margin-bottom: 8px; min-height: 42px; display: flex; flex-direction: column; justify-content: center; }
-        .card-info { font-size: 10px; color: #aaa; font-weight: bold; margin-bottom: 3px; text-transform: uppercase; }
-        .nome-colaborador { color: #333; font-size: 15px; font-weight: 600; }
+        /* Cards com Cores Médias */
+        .card { background: white; border: 1px solid #ddd; border-radius: 6px; padding: 12px; margin-bottom: 10px; min-height: 45px; display: flex; flex-direction: column; justify-content: center; }
+        .card-info { font-size: 10px; color: #666; font-weight: 800; margin-bottom: 4px; text-transform: uppercase; }
+        .nome-colaborador { color: #1a1a1a; font-size: 16px; font-weight: bold; }
 
-        /* Bordas Discretas */
-        .card-gm { border-left: 6px solid #e8f5e9; } 
-        .card-pesca { border-left: 6px solid #e3f2fd; }
-        .card-cat { border-left: 6px solid #fff3e0; } 
+        /* Cores de Identificação */
+        .card-gm { border-left: 10px solid #77dd77; }
+        .card-pesca { border-left: 10px solid #7799ff; }
+        .card-cat { border-left: 10px solid #ffb347; }
 
-        button { background: #2d3277; color: white; width: 100%; padding: 15px; border: none; border-radius: 6px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 15px; transition: 0.2s; }
-        button:hover { background: #3d4499; }
+        button { background: #2d3277; color: white; width: 100%; padding: 16px; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 15px; transition: 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        button:hover { background: #1a1e4d; transform: translateY(-2px); }
     </style>
 </head>
 <body>
 
 <div class="painel">
-    <div class="header">
-        <h1>P2M - OPERAÇÃO LOGÍSTICA</h1>
-        <div class="info-topo">
-            <div>TEAM LEADER: <span class="tl-destaque">OSEIAS BUENO</span></div>
-            <div id="relogio">Aguardando relógio...</div>
+    <div class="header-container">
+        <img src="https://http2.mlstatic.com/frontend-assets/ui-navigation/5.21.22/mercadolibre/logo__small.png" alt="Mercado Livre" class="logo-meli">
+        <div class="header-titles">
+            <h1>P2M - OPERAÇÃO LOGÍSTICA</h1>
         </div>
     </div>
 
-    <div class="colunas-container">
+    <div class="info-topo">
+        <div>TEAM LEADER: <span class="tl-nome">OSEIAS BUENO</span></div>
+        <div id="relogio">00/00/0000 | 00:00:00</div>
+    </div>
+
+    <div class="colunas-container" style="margin-top: 20px;">
         <div class="coluna">
-            <h4 style="text-align:center; color:#ccc; margin: 0 0 10px 0; font-size: 12px;">LADO ESQUERDO</h4>
+            <h4 style="text-align:center; color:#555; margin-bottom: 15px;">LADO ESQUERDO</h4>
             <div class="card card-gm"><div class="card-info">BANCADA 01 (GM)</div><div class="nome-colaborador" id="e1">---</div></div>
             <div class="card card-gm"><div class="card-info">BANCADA 02 (GM)</div><div class="nome-colaborador" id="e2">---</div></div>
             <div class="card card-gm"><div class="card-info">BANCADA 03 (GM)</div><div class="nome-colaborador" id="e3">---</div></div>
@@ -58,7 +63,7 @@ HTML
         <div class="esteira">ESTEIRA LINHA C</div>
 
         <div class="coluna">
-            <h4 style="text-align:center; color:#ccc; margin: 0 0 10px 0; font-size: 12px;">LADO DIREITO</h4>
+            <h4 style="text-align:center; color:#555; margin-bottom: 15px;">LADO DIREITO</h4>
             <div class="card card-pesca"><div class="card-info">BANCADA 01 (PESCA)</div><div class="nome-colaborador" id="d1">SAMUEL</div></div>
             <div class="card card-cat"><div class="card-info">BANCADA 02 (CATEGORIA)</div><div class="nome-colaborador" id="d2">LEONARDO</div></div>
             <div class="card card-cat"><div class="card-info">BANCADA 03 (CATEGORIA)</div><div class="nome-colaborador" id="d3">---</div></div>
@@ -72,57 +77,43 @@ HTML
 </div>
 
 <script>
-// Lista oficial de 17 pessoas
 const grupoA = ["Isac", "Karol Oliveira", "Liliane", "Maycon", "Peterson", "Karol Rocha", "Tati"];
 const grupoB = ["Alex", "Leticia", "Thais nunes", "Laura", "Adrian", "Alana", "Clayton", "Kerollen"];
 
-// Função que faz o relógio funcionar em tempo real
 function iniciarRelogio() {
-    const display = document.getElementById('relogio');
     setInterval(() => {
         const agora = new Date();
-        const data = agora.toLocaleDateString('pt-BR');
-        const hora = agora.toLocaleTimeString('pt-BR');
-        display.innerText = `${data} | ${hora}`;
+        document.getElementById('relogio').innerText = agora.toLocaleDateString('pt-BR') + ' | ' + agora.toLocaleTimeString('pt-BR');
     }, 1000);
 }
 
 function gerarRotatividade() {
-    // Samuel e Leonardo sempre fixos
     document.getElementById('d1').innerText = "SAMUEL";
     document.getElementById('d2').innerText = "LEONARDO";
 
     let poolA = [...grupoA].sort(() => Math.random() - 0.5);
     let poolB = [...grupoB].sort(() => Math.random() - 0.5);
     
-    // IDs das 9 bancadas que giram
     const idsSorteaveis = ['e1', 'e2', 'e3', 'e4', 'e5', 'd3', 'd4', 'd5', 'd6'];
     let distribuicao = {};
     idsSorteaveis.forEach(id => distribuicao[id] = []);
 
-    // 1. Garante que ninguém fique sozinho se houver gente para dupla
     idsSorteaveis.forEach((id) => {
-        if (poolA.length > 0) {
-            distribuicao[id].push(poolA.pop());
-        } else if (poolB.length > 0) {
-            distribuicao[id].push(poolB.pop());
-        }
+        if (poolA.length > 0) distribuicao[id].push(poolA.pop());
+        else if (poolB.length > 0) distribuicao[id].push(poolB.pop());
     });
 
-    // 2. Distribui o restante para formar as duplas
-    let restante = [...poolA, ...poolB].sort(() => Math.random() - 0.5);
-    restante.forEach((nome, index) => {
+    let sobra = [...poolA, ...poolB].sort(() => Math.random() - 0.5);
+    sobra.forEach((nome, index) => {
         let idAlvo = idsSorteaveis[index % idsSorteaveis.length];
         distribuicao[idAlvo].push(nome);
     });
 
-    // 3. Escreve no HTML
     idsSorteaveis.forEach(id => {
         document.getElementById(id).innerText = distribuicao[id].join(" / ");
     });
 }
 
-// Inicializa tudo ao abrir a página
 window.onload = function() {
     iniciarRelogio();
     gerarRotatividade();
