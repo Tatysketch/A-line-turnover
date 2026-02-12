@@ -7,32 +7,31 @@
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; margin: 0; padding: 10px; display: flex; justify-content: center; }
         .painel { background: white; width: 950px; border-radius: 12px; padding: 25px; border: 1px solid #dcdcdc; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         
-        /* Cabeçalho Corporativo com Logo */
-        .header-container { display: flex; align-items: center; justify-content: center; gap: 20px; border-bottom: 2px solid #2d3277; padding-bottom: 15px; margin-bottom: 20px; position: relative; }
+        .header-container { display: flex; align-items: center; justify-content: center; gap: 20px; border-bottom: 2px solid #2d3277; padding-bottom: 15px; margin-bottom: 20px; }
         .logo-meli { width: 60px; height: auto; }
         .header-titles h1 { color: #2d3277; margin: 0; font-size: 26px; font-weight: 800; text-transform: uppercase; }
         
         .info-topo { display: flex; justify-content: space-between; margin-top: 10px; color: #444; font-size: 15px; font-weight: 600; }
-        .tl-nome { color: #2d3277; border-bottom: 2px solid #ffdb00; } /* Detalhe em amarelo meli */
+        .tl-nome { color: #2d3277; border-bottom: 2px solid #ffdb00; }
         #relogio { background: #2d3277; color: white; padding: 3px 10px; border-radius: 4px; font-family: monospace; }
 
-        .colunas-container { display: flex; justify-content: space-between; gap: 15px; }
+        .colunas-container { display: flex; justify-content: space-between; gap: 15px; margin-top: 20px; }
         .coluna { flex: 1; }
-        
-        .esteira { width: 35px; background: #444; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 11px; writing-mode: vertical-rl; text-orientation: mixed; box-shadow: inset 0 0 8px #000; }
+        .esteira { width: 35px; background: #444; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 11px; writing-mode: vertical-rl; text-orientation: mixed; }
 
-        /* Cards com Cores Médias */
-        .card { background: white; border: 1px solid #ddd; border-radius: 6px; padding: 12px; margin-bottom: 10px; min-height: 45px; display: flex; flex-direction: column; justify-content: center; }
+        .card { background: white; border: 1px solid #ddd; border-radius: 6px; padding: 12px; margin-bottom: 10px; min-height: 45px; }
         .card-info { font-size: 10px; color: #666; font-weight: 800; margin-bottom: 4px; text-transform: uppercase; }
         .nome-colaborador { color: #1a1a1a; font-size: 16px; font-weight: bold; }
 
-        /* Cores de Identificação */
         .card-gm { border-left: 10px solid #77dd77; }
         .card-pesca { border-left: 10px solid #7799ff; }
         .card-cat { border-left: 10px solid #ffb347; }
 
-        button { background: #2d3277; color: white; width: 100%; padding: 16px; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 15px; transition: 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        button:hover { background: #1a1e4d; transform: translateY(-2px); }
+        button { background: #2d3277; color: white; width: 100%; padding: 16px; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 15px; }
+        
+        /* Estilo do Histórico */
+        .historico-box { margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ccc; font-size: 12px; color: #666; }
+        .historico-titulo { font-weight: bold; margin-bottom: 5px; color: #2d3277; text-transform: uppercase; }
     </style>
 </head>
 <body>
@@ -40,9 +39,7 @@
 <div class="painel">
     <div class="header-container">
         <img src="https://http2.mlstatic.com/frontend-assets/ui-navigation/5.21.22/mercadolibre/logo__small.png" alt="Mercado Livre" class="logo-meli">
-        <div class="header-titles">
-            <h1>P2M - OPERAÇÃO LOGÍSTICA</h1>
-        </div>
+        <div class="header-titles"><h1>P2M - OPERAÇÃO LOGÍSTICA</h1></div>
     </div>
 
     <div class="info-topo">
@@ -50,20 +47,18 @@
         <div id="relogio">00/00/0000 | 00:00:00</div>
     </div>
 
-    <div class="colunas-container" style="margin-top: 20px;">
+    <div class="colunas-container">
         <div class="coluna">
-            <h4 style="text-align:center; color:#555; margin-bottom: 15px;">LADO ESQUERDO</h4>
+            <h4 style="text-align:center; color:#555;">ESQUERDA</h4>
             <div class="card card-gm"><div class="card-info">BANCADA 01 (GM)</div><div class="nome-colaborador" id="e1">---</div></div>
             <div class="card card-gm"><div class="card-info">BANCADA 02 (GM)</div><div class="nome-colaborador" id="e2">---</div></div>
             <div class="card card-gm"><div class="card-info">BANCADA 03 (GM)</div><div class="nome-colaborador" id="e3">---</div></div>
             <div class="card card-gm"><div class="card-info">BANCADA 04 (GM)</div><div class="nome-colaborador" id="e4">---</div></div>
             <div class="card card-gm"><div class="card-info">BANCADA 05 (GM)</div><div class="nome-colaborador" id="e5">---</div></div>
         </div>
-
         <div class="esteira">ESTEIRA LINHA C</div>
-
         <div class="coluna">
-            <h4 style="text-align:center; color:#555; margin-bottom: 15px;">LADO DIREITO</h4>
+            <h4 style="text-align:center; color:#555;">DIREITA</h4>
             <div class="card card-pesca"><div class="card-info">BANCADA 01 (PESCA)</div><div class="nome-colaborador" id="d1">SAMUEL</div></div>
             <div class="card card-cat"><div class="card-info">BANCADA 02 (CATEGORIA)</div><div class="nome-colaborador" id="d2">LEONARDO</div></div>
             <div class="card card-cat"><div class="card-info">BANCADA 03 (CATEGORIA)</div><div class="nome-colaborador" id="d3">---</div></div>
@@ -74,11 +69,17 @@
     </div>
 
     <button onclick="gerarRotatividade()">Girar Rotatividade 🔄</button>
+
+    <div class="historico-box">
+        <div class="historico-titulo">📝 Último Giro Efetuado:</div>
+        <div id="log-historico">Nenhum giro registrado ainda.</div>
+    </div>
 </div>
 
 <script>
 const grupoA = ["Isac", "Karol Oliveira", "Liliane", "Maycon", "Peterson", "Karol Rocha", "Tati"];
 const grupoB = ["Alex", "Leticia", "Thais nunes", "Laura", "Adrian", "Alana", "Clayton", "Kerollen"];
+const idsSorteaveis = ['e1', 'e2', 'e3', 'e4', 'e5', 'd3', 'd4', 'd5', 'd6'];
 
 function iniciarRelogio() {
     setInterval(() => {
@@ -88,35 +89,75 @@ function iniciarRelogio() {
 }
 
 function gerarRotatividade() {
-    document.getElementById('d1').innerText = "SAMUEL";
-    document.getElementById('d2').innerText = "LEONARDO";
+    let tentativa = 0;
+    let distribuicao;
+    const historicoAnterior = JSON.parse(localStorage.getItem('ultimoGiro')) || {};
 
+    // Tenta gerar uma distribuição diferente da anterior (limite de 10 tentativas para não travar)
+    do {
+        distribuicao = realizarSorteio();
+        tentativa++;
+    } while (JSON.stringify(distribuicao) === JSON.stringify(historicoAnterior) && tentativa < 10);
+
+    // Salva o novo giro no histórico
+    localStorage.setItem('ultimoGiro', JSON.stringify(distribuicao));
+    
+    // Atualiza a tela
+    exibirResultados(distribuicao);
+    exibirHistorico(historicoAnterior);
+}
+
+function realizarSorteio() {
     let poolA = [...grupoA].sort(() => Math.random() - 0.5);
     let poolB = [...grupoB].sort(() => Math.random() - 0.5);
-    
-    const idsSorteaveis = ['e1', 'e2', 'e3', 'e4', 'e5', 'd3', 'd4', 'd5', 'd6'];
-    let distribuicao = {};
-    idsSorteaveis.forEach(id => distribuicao[id] = []);
+    let resultado = {};
 
-    idsSorteaveis.forEach((id) => {
-        if (poolA.length > 0) distribuicao[id].push(poolA.pop());
-        else if (poolB.length > 0) distribuicao[id].push(poolB.pop());
+    idsSorteaveis.forEach(id => {
+        let dupla = [];
+        if (poolA.length > 0) dupla.push(poolA.pop());
+        else if (poolB.length > 0) dupla.push(poolB.pop());
+        resultado[id] = dupla;
     });
 
     let sobra = [...poolA, ...poolB].sort(() => Math.random() - 0.5);
     sobra.forEach((nome, index) => {
         let idAlvo = idsSorteaveis[index % idsSorteaveis.length];
-        distribuicao[idAlvo].push(nome);
+        resultado[idAlvo].push(nome);
     });
 
+    return resultado;
+}
+
+function exibirResultados(dist) {
+    document.getElementById('d1').innerText = "SAMUEL";
+    document.getElementById('d2').innerText = "LEONARDO";
     idsSorteaveis.forEach(id => {
-        document.getElementById(id).innerText = distribuicao[id].join(" / ");
+        document.getElementById(id).innerText = dist[id].join(" / ");
     });
+}
+
+function exibirHistorico(hist) {
+    const log = document.getElementById('log-historico');
+    if (Object.keys(hist).length === 0) return;
+    
+    let texto = "";
+    for (let id in hist) {
+        let bancadaNome = document.querySelector(`#${id}`).previousElementSibling.innerText;
+        texto += `<b>${bancadaNome}:</b> ${hist[id].join(" / ")} | `;
+    }
+    log.innerHTML = texto;
 }
 
 window.onload = function() {
     iniciarRelogio();
-    gerarRotatividade();
+    // Se quiser que já comece sorteado com o que estava salvo:
+    const salvo = JSON.parse(localStorage.getItem('ultimoGiro'));
+    if (salvo) {
+        exibirResultados(salvo);
+        // O histórico do salvo seria o anterior a ele (não temos agora, então mostra vazio ou o atual)
+    } else {
+        gerarRotatividade();
+    }
 };
 </script>
 </body>
