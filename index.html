@@ -5,7 +5,7 @@
     <title>P2M - OPERAÇÃO LOGÍSTICA</title>
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; margin: 0; padding: 10px; display: flex; justify-content: center; }
-        .painel { background: white; width: 950px; border-radius: 12px; padding: 25px; border: 1px solid #dcdcdc; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .painel { background: white; width: 1000px; border-radius: 12px; padding: 25px; border: 1px solid #dcdcdc; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         
         .header-container { display: flex; align-items: center; justify-content: center; gap: 20px; border-bottom: 2px solid #2d3277; padding-bottom: 15px; margin-bottom: 20px; }
         .logo-meli { width: 60px; height: auto; }
@@ -17,9 +17,9 @@
 
         .colunas-container { display: flex; justify-content: space-between; gap: 15px; margin-top: 20px; }
         .coluna { flex: 1; }
-        .esteira { width: 35px; background: #444; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 11px; writing-mode: vertical-rl; text-orientation: mixed; }
+        .esteira { width: 35px; background: #444; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 11px; writing-mode: vertical-rl; text-orientation: mixed; box-shadow: inset 0 0 8px #000; }
 
-        .card { background: white; border: 1px solid #ddd; border-radius: 6px; padding: 12px; margin-bottom: 10px; min-height: 45px; }
+        .card { background: white; border: 1px solid #ddd; border-radius: 6px; padding: 12px; margin-bottom: 10px; min-height: 45px; display: flex; flex-direction: column; justify-content: center; }
         .card-info { font-size: 10px; color: #666; font-weight: 800; margin-bottom: 4px; text-transform: uppercase; }
         .nome-colaborador { color: #1a1a1a; font-size: 16px; font-weight: bold; }
 
@@ -27,11 +27,10 @@
         .card-pesca { border-left: 10px solid #7799ff; }
         .card-cat { border-left: 10px solid #ffb347; }
 
-        button { background: #2d3277; color: white; width: 100%; padding: 16px; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 15px; }
-        
-        /* Estilo do Histórico */
+        button { background: #2d3277; color: white; width: 100%; padding: 16px; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 15px; transition: 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        button:hover { background: #1a1e4d; transform: translateY(-2px); }
+
         .historico-box { margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ccc; font-size: 12px; color: #666; }
-        .historico-titulo { font-weight: bold; margin-bottom: 5px; color: #2d3277; text-transform: uppercase; }
     </style>
 </head>
 <body>
@@ -49,20 +48,22 @@
 
     <div class="colunas-container">
         <div class="coluna">
-            <h4 style="text-align:center; color:#555;">ESQUERDA</h4>
+            <h4 style="text-align:center; color:#555; margin-bottom: 15px;">LADO ESQUERDO</h4>
             <div class="card card-gm"><div class="card-info">BANCADA 01 (GM)</div><div class="nome-colaborador" id="e1">---</div></div>
             <div class="card card-gm"><div class="card-info">BANCADA 02 (GM)</div><div class="nome-colaborador" id="e2">---</div></div>
             <div class="card card-gm"><div class="card-info">BANCADA 03 (GM)</div><div class="nome-colaborador" id="e3">---</div></div>
             <div class="card card-gm"><div class="card-info">BANCADA 04 (GM)</div><div class="nome-colaborador" id="e4">---</div></div>
             <div class="card card-gm"><div class="card-info">BANCADA 05 (GM)</div><div class="nome-colaborador" id="e5">---</div></div>
+            <div class="card card-gm"><div class="card-info">BANCADA 06 (GM)</div><div class="nome-colaborador" id="e6">---</div></div>
         </div>
+
         <div class="esteira">ESTEIRA LINHA C</div>
+
         <div class="coluna">
-            <h4 style="text-align:center; color:#555;">DIREITA</h4>
-            <div class="card card-pesca"><div class="card-info">BANCADA 01 (PESCA)</div><div class="nome-colaborador" id="d1">SAMUEL</div></div>
-            <div class="card card-cat"><div class="card-info">BANCADA 02 (CATEGORIA)</div><div class="nome-colaborador" id="d2">LEONARDO</div></div>
-            <div class="card card-cat"><div class="card-info">BANCADA 03 (CATEGORIA)</div><div class="nome-colaborador" id="d3">---</div></div>
-            <div class="card card-cat"><div class="card-info">BANCADA 04 (CATEGORIA)</div><div class="nome-colaborador" id="d4">---</div></div>
+            <h4 style="text-align:center; color:#555; margin-bottom: 15px;">LADO DIREITO</h4>
+            <div class="card card-pesca"><div class="card-info">PESCA (FIXO)</div><div class="nome-colaborador" id="d-pesca">SAMUEL</div></div>
+            <div class="card card-cat"><div class="card-info">CATEGORIAS</div><div class="nome-colaborador" id="d-cat">---</div></div>
+            <div class="card card-gm"><div class="card-info">BANCADA 04 (GM)</div><div class="nome-colaborador" id="d4">---</div></div>
             <div class="card card-gm"><div class="card-info">BANCADA 05 (GM)</div><div class="nome-colaborador" id="d5">---</div></div>
             <div class="card card-gm"><div class="card-info">BANCADA 06 (GM)</div><div class="nome-colaborador" id="d6">---</div></div>
         </div>
@@ -71,15 +72,14 @@
     <button onclick="gerarRotatividade()">Girar Rotatividade 🔄</button>
 
     <div class="historico-box">
-        <div class="historico-titulo">📝 Último Giro Efetuado:</div>
-        <div id="log-historico">Nenhum giro registrado ainda.</div>
+        <strong>📝 Último Giro (Memória):</strong>
+        <div id="log-historico">Aguardando primeiro giro...</div>
     </div>
 </div>
 
 <script>
-const grupoA = ["Isac", "Karol Oliveira", "Liliane", "Maycon", "Peterson", "Karol Rocha", "Tati"];
-const grupoB = ["Alex", "Leticia", "Thais nunes", "Laura", "Adrian", "Alana", "Clayton", "Kerollen"];
-const idsSorteaveis = ['e1', 'e2', 'e3', 'e4', 'e5', 'd3', 'd4', 'd5', 'd6'];
+const destaques = ["Isac damasceno", "alana", "Liliane", "Maycon", "Petterson", "Thais virginio", "Tati", "thais nunes"];
+const aprendizado = ["Alex", "Leticia ingrid", "Laura", "pamela ", "Clayton", "isaac de araujo", "thais lopes"];
 
 function iniciarRelogio() {
     setInterval(() => {
@@ -89,75 +89,64 @@ function iniciarRelogio() {
 }
 
 function gerarRotatividade() {
-    let tentativa = 0;
-    let distribuicao;
-    const historicoAnterior = JSON.parse(localStorage.getItem('ultimoGiro')) || {};
-
-    // Tenta gerar uma distribuição diferente da anterior (limite de 10 tentativas para não travar)
-    do {
-        distribuicao = realizarSorteio();
-        tentativa++;
-    } while (JSON.stringify(distribuicao) === JSON.stringify(historicoAnterior) && tentativa < 10);
-
-    // Salva o novo giro no histórico
-    localStorage.setItem('ultimoGiro', JSON.stringify(distribuicao));
+    const historicoAnterior = JSON.parse(localStorage.getItem('ultimoGiroLinhaC')) || {};
     
-    // Atualiza a tela
-    exibirResultados(distribuicao);
-    exibirHistorico(historicoAnterior);
-}
+    // Unifica e embaralha todos exceto a Tati e Samuel
+    let todosDisponiveis = [...destaques, ...aprendizado].filter(n => n !== "Tati");
+    todosDisponiveis.sort(() => Math.random() - 0.5);
+    
+    // IDs que precisam ser preenchidos (10 IDs)
+    const idsSorteaveis = ['e1', 'e2', 'e3', 'e4', 'e5', 'e6', 'd-cat', 'd4', 'd5', 'd6'];
+    let distribuicao = {};
+    idsSorteaveis.forEach(id => distribuicao[id] = []);
 
-function realizarSorteio() {
-    let poolA = [...grupoA].sort(() => Math.random() - 0.5);
-    let poolB = [...grupoB].sort(() => Math.random() - 0.5);
-    let resultado = {};
+    // 1. Regra da Tati: Sorteia uma bancada para ela ficar sozinha
+    const idTati = idsSorteaveis[Math.floor(Math.random() * idsSorteaveis.length)];
+    distribuicao[idTati].push("Tati");
 
-    idsSorteaveis.forEach(id => {
-        let dupla = [];
-        if (poolA.length > 0) dupla.push(poolA.pop());
-        else if (poolB.length > 0) dupla.push(poolB.pop());
-        resultado[id] = dupla;
+    // 2. Preenchimento Obrigatório: Garante 1 pessoa em cada bancada restante
+    const idsRestantes = idsSorteaveis.filter(id => id !== idTati);
+    idsRestantes.forEach(id => {
+        if (todosDisponiveis.length > 0) {
+            distribuicao[id].push(todosDisponiveis.pop());
+        }
     });
 
-    let sobra = [...poolA, ...poolB].sort(() => Math.random() - 0.5);
-    sobra.forEach((nome, index) => {
-        let idAlvo = idsSorteaveis[index % idsSorteaveis.length];
-        resultado[idAlvo].push(nome);
-    });
+    // 3. Distribuição de Duplas: O que sobrar de gente vai entrando nas bancadas ocupadas
+    // Exceto na da Tati
+    let i = 0;
+    while (todosDisponiveis.length > 0) {
+        let idAlvo = idsRestantes[i % idsRestantes.length];
+        distribuicao[idAlvo].push(todosDisponiveis.pop());
+        i++;
+    }
 
-    return resultado;
+    localStorage.setItem('ultimoGiroLinhaC', JSON.stringify(distribuicao));
+    renderizar(distribuicao);
+    exibirLog(historicoAnterior);
 }
 
-function exibirResultados(dist) {
-    document.getElementById('d1').innerText = "SAMUEL";
-    document.getElementById('d2').innerText = "LEONARDO";
-    idsSorteaveis.forEach(id => {
+function renderizar(dist) {
+    document.getElementById('d-pesca').innerText = "SAMUEL";
+    for (let id in dist) {
         document.getElementById(id).innerText = dist[id].join(" / ");
-    });
+    }
 }
 
-function exibirHistorico(hist) {
+function exibirLog(hist) {
     const log = document.getElementById('log-historico');
     if (Object.keys(hist).length === 0) return;
-    
-    let texto = "";
+    let resumo = "";
     for (let id in hist) {
-        let bancadaNome = document.querySelector(`#${id}`).previousElementSibling.innerText;
-        texto += `<b>${bancadaNome}:</b> ${hist[id].join(" / ")} | `;
+        resumo += `${hist[id].join("/")} | `;
     }
-    log.innerHTML = texto;
+    log.innerText = resumo;
 }
 
-window.onload = function() {
+window.onload = () => {
     iniciarRelogio();
-    // Se quiser que já comece sorteado com o que estava salvo:
-    const salvo = JSON.parse(localStorage.getItem('ultimoGiro'));
-    if (salvo) {
-        exibirResultados(salvo);
-        // O histórico do salvo seria o anterior a ele (não temos agora, então mostra vazio ou o atual)
-    } else {
-        gerarRotatividade();
-    }
+    const salvo = JSON.parse(localStorage.getItem('ultimoGiroLinhaC'));
+    if(salvo) renderizar(salvo); else gerarRotatividade();
 };
 </script>
 </body>
