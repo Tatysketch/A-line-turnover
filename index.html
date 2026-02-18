@@ -17,20 +17,18 @@
 
         .colunas-container { display: flex; justify-content: space-between; gap: 15px; margin-top: 20px; }
         .coluna { flex: 1; }
-        .esteira { width: 35px; background: #444; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 11px; writing-mode: vertical-rl; text-orientation: mixed; box-shadow: inset 0 0 8px #000; }
+        .esteira { width: 35px; background: #444; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 11px; writing-mode: vertical-rl; text-orientation: mixed; }
 
         .card { background: white; border: 1px solid #ddd; border-radius: 6px; padding: 12px; margin-bottom: 10px; min-height: 45px; display: flex; flex-direction: column; justify-content: center; }
         .card-info { font-size: 10px; color: #666; font-weight: 800; margin-bottom: 4px; text-transform: uppercase; }
         .nome-colaborador { color: #1a1a1a; font-size: 16px; font-weight: bold; }
 
-        .card-gm { border-left: 10px solid #77dd77; }
-        .card-pesca { border-left: 10px solid #7799ff; }
-        .card-cat { border-left: 10px solid #ffb347; }
+        /* Cores das Bancadas conforme Layout Anterior */
+        .card-gm { border-left: 10px solid #77dd77; }    /* Verde */
+        .card-pesca { border-left: 10px solid #2d3277; } /* Azul Escuro */
+        .card-cat { border-left: 10px solid #f0ad4e; }   /* Laranja */
 
-        button { background: #2d3277; color: white; width: 100%; padding: 16px; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 15px; transition: 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        button:hover { background: #1a1e4d; transform: translateY(-2px); }
-
-        .historico-box { margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ccc; font-size: 12px; color: #666; }
+        button { background: #2d3277; color: white; width: 100%; padding: 16px; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 15px; }
     </style>
 </head>
 <body>
@@ -48,38 +46,36 @@
 
     <div class="colunas-container">
         <div class="coluna">
-            <h4 style="text-align:center; color:#555; margin-bottom: 15px;">LADO ESQUERDO</h4>
+            <h4 style="text-align:center; color:#888;">LADO ESQUERDO</h4>
             <div class="card card-gm"><div class="card-info">BANCADA 01 (GM)</div><div class="nome-colaborador" id="e1">---</div></div>
             <div class="card card-gm"><div class="card-info">BANCADA 02 (GM)</div><div class="nome-colaborador" id="e2">---</div></div>
             <div class="card card-gm"><div class="card-info">BANCADA 03 (GM)</div><div class="nome-colaborador" id="e3">---</div></div>
             <div class="card card-gm"><div class="card-info">BANCADA 04 (GM)</div><div class="nome-colaborador" id="e4">---</div></div>
             <div class="card card-gm"><div class="card-info">BANCADA 05 (GM)</div><div class="nome-colaborador" id="e5">---</div></div>
-            <div class="card card-gm"><div class="card-info">BANCADA 06 (GM)</div><div class="nome-colaborador" id="e6">---</div></div>
         </div>
 
         <div class="esteira">ESTEIRA LINHA C</div>
 
         <div class="coluna">
-            <h4 style="text-align:center; color:#555; margin-bottom: 15px;">LADO DIREITO</h4>
-            <div class="card card-pesca"><div class="card-info">PESCA (FIXO)</div><div class="nome-colaborador" id="d-pesca">SAMUEL</div></div>
-            <div class="card card-cat"><div class="card-info">CATEGORIAS</div><div class="nome-colaborador" id="d-cat">---</div></div>
-            <div class="card card-gm"><div class="card-info">BANCADA 04 (GM)</div><div class="nome-colaborador" id="d4">---</div></div>
+            <h4 style="text-align:center; color:#888;">LADO DIREITO</h4>
+            <div class="card card-pesca"><div class="card-info">BANCADA 01 (PESCA - FIXO)</div><div class="nome-colaborador" id="d-pesca">SAMUEL</div></div>
+            <div class="card card-cat"><div class="card-info">BANCADA 02 (CATEGORIA)</div><div class="nome-colaborador" id="d2">---</div></div>
+            <div class="card card-cat"><div class="card-info">BANCADA 03 (CATEGORIA)</div><div class="nome-colaborador" id="d3">---</div></div>
+            <div class="card card-cat"><div class="card-info">BANCADA 04 (CATEGORIA)</div><div class="nome-colaborador" id="d4">---</div></div>
             <div class="card card-gm"><div class="card-info">BANCADA 05 (GM)</div><div class="nome-colaborador" id="d5">---</div></div>
             <div class="card card-gm"><div class="card-info">BANCADA 06 (GM)</div><div class="nome-colaborador" id="d6">---</div></div>
         </div>
     </div>
 
     <button onclick="gerarRotatividade()">Girar Rotatividade 🔄</button>
-
-    <div class="historico-box">
-        <strong>📝 Último Giro (Memória):</strong>
-        <div id="log-historico">Aguardando primeiro giro...</div>
-    </div>
 </div>
 
 <script>
-const destaques = ["Isac damasceno", "alana", "Liliane", "Maycon", "Petterson", "Thais virginio", "Tati", "thais nunes"];
-const aprendizado = ["Alex", "Leticia ingrid", "Laura", "pamela ", "Clayton", "isaac de araujo", "thais lopes"];
+const grupoA = ["Isac damasceno", "alana", "Liliane", "Maycon", "Petterson", "Thais virginio", "Tati", "thais nunes"];
+const grupoB = ["Alex", "Leticia ingrid", "Laura", "pamela ", "Clayton", "isaac de araujo", "thais lopes"];
+
+// IDs das 10 bancadas que giram
+const idsGiro = ['e1', 'e2', 'e3', 'e4', 'e5', 'd2', 'd3', 'd4', 'd5', 'd6'];
 
 function iniciarRelogio() {
     setInterval(() => {
@@ -89,64 +85,49 @@ function iniciarRelogio() {
 }
 
 function gerarRotatividade() {
-    const historicoAnterior = JSON.parse(localStorage.getItem('ultimoGiroLinhaC')) || {};
+    let a = [...grupoA].sort(() => Math.random() - 0.5);
+    let b = [...grupoB].sort(() => Math.random() - 0.5);
     
-    // Unifica e embaralha todos exceto a Tati e Samuel
-    let todosDisponiveis = [...destaques, ...aprendizado].filter(n => n !== "Tati");
-    todosDisponiveis.sort(() => Math.random() - 0.5);
-    
-    // IDs que precisam ser preenchidos (10 IDs)
-    const idsSorteaveis = ['e1', 'e2', 'e3', 'e4', 'e5', 'e6', 'd-cat', 'd4', 'd5', 'd6'];
-    let distribuicao = {};
-    idsSorteaveis.forEach(id => distribuicao[id] = []);
+    let dist = {};
+    idsGiro.forEach(id => dist[id] = []);
 
-    // 1. Regra da Tati: Sorteia uma bancada para ela ficar sozinha
-    const idTati = idsSorteaveis[Math.floor(Math.random() * idsSorteaveis.length)];
-    distribuicao[idTati].push("Tati");
+    // 1. Garantir Tati sozinha
+    const idTati = idsGiro[Math.floor(Math.random() * idsGiro.length)];
+    dist[idTati].push("Tati");
+    a = a.filter(n => n !== "Tati");
 
-    // 2. Preenchimento Obrigatório: Garante 1 pessoa em cada bancada restante
-    const idsRestantes = idsSorteaveis.filter(id => id !== idTati);
-    idsRestantes.forEach(id => {
-        if (todosDisponiveis.length > 0) {
-            distribuicao[id].push(todosDisponiveis.pop());
+    // 2. Intercalar: Colocar 1 do Grupo A em cada bancada (exceto onde está a Tati)
+    const restoA = idsGiro.filter(id => id !== idTati);
+    restoA.forEach(id => {
+        if(a.length > 0) dist[id].push(a.pop());
+    });
+
+    // 3. Preencher: Colocar 1 do Grupo B em cada bancada disponível (incluindo a da Tati se necessário, mas vamos priorizar as outras)
+    // Para manter todas ocupadas, o Grupo B preenche os espaços vazios e depois as duplas
+    idsGiro.forEach(id => {
+        if(dist[id].length === 0 && b.length > 0) {
+            dist[id].push(b.pop());
         }
     });
 
-    // 3. Distribuição de Duplas: O que sobrar de gente vai entrando nas bancadas ocupadas
-    // Exceto na da Tati
+    // 4. Formar Duplas: O que sobrar do Grupo B vai para as bancadas (menos a da Tati)
     let i = 0;
-    while (todosDisponiveis.length > 0) {
-        let idAlvo = idsRestantes[i % idsRestantes.length];
-        distribuicao[idAlvo].push(todosDisponiveis.pop());
+    while(b.length > 0) {
+        let idAlvo = restoA[i % restoA.length];
+        dist[idAlvo].push(b.pop());
         i++;
     }
 
-    localStorage.setItem('ultimoGiroLinhaC', JSON.stringify(distribuicao));
-    renderizar(distribuicao);
-    exibirLog(historicoAnterior);
-}
-
-function renderizar(dist) {
+    // Renderizar
     document.getElementById('d-pesca').innerText = "SAMUEL";
-    for (let id in dist) {
+    idsGiro.forEach(id => {
         document.getElementById(id).innerText = dist[id].join(" / ");
-    }
-}
-
-function exibirLog(hist) {
-    const log = document.getElementById('log-historico');
-    if (Object.keys(hist).length === 0) return;
-    let resumo = "";
-    for (let id in hist) {
-        resumo += `${hist[id].join("/")} | `;
-    }
-    log.innerText = resumo;
+    });
 }
 
 window.onload = () => {
     iniciarRelogio();
-    const salvo = JSON.parse(localStorage.getItem('ultimoGiroLinhaC'));
-    if(salvo) renderizar(salvo); else gerarRotatividade();
+    gerarRotatividade();
 };
 </script>
 </body>
