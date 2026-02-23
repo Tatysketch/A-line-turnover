@@ -23,12 +23,15 @@
         .card-info { font-size: 10px; color: #666; font-weight: 800; margin-bottom: 4px; text-transform: uppercase; }
         .nome-colaborador { color: #1a1a1a; font-size: 16px; font-weight: bold; }
 
-        /* Cores das Bancadas conforme Layout Anterior */
-        .card-gm { border-left: 10px solid #77dd77; }    /* Verde */
+        .card-gm { border-left: 10px solid #77dd77; }    /* Verde Médio */
         .card-pesca { border-left: 10px solid #2d3277; } /* Azul Escuro */
-        .card-cat { border-left: 10px solid #f0ad4e; }   /* Laranja */
+        .card-cat { border-left: 10px solid #f0ad4e; }   /* Laranja Médio */
 
-        button { background: #2d3277; color: white; width: 100%; padding: 16px; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 15px; }
+        button { background: #2d3277; color: white; width: 100%; padding: 16px; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 15px; transition: 0.3s; }
+        button:hover { background: #1c204d; }
+
+        .historico-box { margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ccc; font-size: 11px; color: #555; line-height: 1.6; }
+        .historico-titulo { font-weight: bold; margin-bottom: 8px; color: #2d3277; text-transform: uppercase; border-bottom: 1px solid #ddd; padding-bottom: 4px; }
     </style>
 </head>
 <body>
@@ -59,22 +62,25 @@
         <div class="coluna">
             <h4 style="text-align:center; color:#888;">LADO DIREITO</h4>
             <div class="card card-pesca"><div class="card-info">BANCADA 01 (PESCA - FIXO)</div><div class="nome-colaborador" id="d-pesca">SAMUEL</div></div>
-            <div class="card card-cat"><div class="card-info">BANCADA 02 (CATEGORIA)</div><div class="nome-colaborador" id="d2">---</div></div>
-            <div class="card card-cat"><div class="card-info">BANCADA 03 (CATEGORIA)</div><div class="nome-colaborador" id="d3">---</div></div>
-            <div class="card card-cat"><div class="card-info">BANCADA 04 (CATEGORIA)</div><div class="nome-colaborador" id="d4">---</div></div>
+            <div class="card card-cat"><div class="card-info">BANCADA 02 (CAT - Alimento / Saúde)</div><div class="nome-colaborador" id="d2">---</div></div>
+            <div class="card card-cat"><div class="card-info">BANCADA 03 (CAT - Cosmético / Mapa)</div><div class="nome-colaborador" id="d3">---</div></div>
+            <div class="card card-cat"><div class="card-info">BANCADA 04 (CAT - HV / Saneantes)</div><div class="nome-colaborador" id="d4">---</div></div>
             <div class="card card-gm"><div class="card-info">BANCADA 05 (GM)</div><div class="nome-colaborador" id="d5">---</div></div>
             <div class="card card-gm"><div class="card-info">BANCADA 06 (GM)</div><div class="nome-colaborador" id="d6">---</div></div>
         </div>
     </div>
 
     <button onclick="gerarRotatividade()">Girar Rotatividade 🔄</button>
+
+    <div class="historico-box">
+        <div class="historico-titulo">📝 Histórico do Último Giro:</div>
+        <div id="log-historico">Nenhum giro anterior salvo.</div>
+    </div>
 </div>
 
 <script>
-const grupoA = ["Isac damasceno", "alana", "Liliane", "Maycon", "Petterson", "Thais virginio", "Tati", "thais nunes"];
-const grupoB = ["Alex", "Leticia ingrid", "Laura", "pamela ", "Clayton", "isaac de araujo", "thais lopes"];
-
-// IDs das 10 bancadas que giram
+const grupoA = ["Isac Damasceno", "Alana", "Liliane", "Maycon", "Petterson", "Thais Virginio", "Tati", "Thais Nunes"];
+const grupoB = ["Alex", "Leticia Ingrid", "Laura", "Pamela ", "Clayton", "Isaac de Araujo", "Thais Lopes"];
 const idsGiro = ['e1', 'e2', 'e3', 'e4', 'e5', 'd2', 'd3', 'd4', 'd5', 'd6'];
 
 function iniciarRelogio() {
@@ -85,32 +91,34 @@ function iniciarRelogio() {
 }
 
 function gerarRotatividade() {
+    // Captura o que está na tela agora para salvar como histórico
+    let estadoAtual = {};
+    idsGiro.forEach(id => {
+        estadoAtual[id] = document.getElementById(id).innerText;
+    });
+    localStorage.setItem('giroAnteriorLinhaC', JSON.stringify(estadoAtual));
+
     let a = [...grupoA].sort(() => Math.random() - 0.5);
     let b = [...grupoB].sort(() => Math.random() - 0.5);
     
     let dist = {};
     idsGiro.forEach(id => dist[id] = []);
 
-    // 1. Garantir Tati sozinha
+    // 1. Tati sozinha (Grupo A)
     const idTati = idsGiro[Math.floor(Math.random() * idsGiro.length)];
     dist[idTati].push("Tati");
     a = a.filter(n => n !== "Tati");
 
-    // 2. Intercalar: Colocar 1 do Grupo A em cada bancada (exceto onde está a Tati)
+    // 2. Intercalar: 1 do Grupo A em cada bancada (exceto Tati)
     const restoA = idsGiro.filter(id => id !== idTati);
-    restoA.forEach(id => {
-        if(a.length > 0) dist[id].push(a.pop());
-    });
+    restoA.forEach(id => { if(a.length > 0) dist[id].push(a.pop()); });
 
-    // 3. Preencher: Colocar 1 do Grupo B em cada bancada disponível (incluindo a da Tati se necessário, mas vamos priorizar as outras)
-    // Para manter todas ocupadas, o Grupo B preenche os espaços vazios e depois as duplas
+    // 3. Grupo B preenche os espaços vazios primeiro (Garante que todas fiquem ocupadas)
     idsGiro.forEach(id => {
-        if(dist[id].length === 0 && b.length > 0) {
-            dist[id].push(b.pop());
-        }
+        if(dist[id].length === 0 && b.length > 0) dist[id].push(b.pop());
     });
 
-    // 4. Formar Duplas: O que sobrar do Grupo B vai para as bancadas (menos a da Tati)
+    // 4. Grupo B forma duplas com o restante (Intercalado)
     let i = 0;
     while(b.length > 0) {
         let idAlvo = restoA[i % restoA.length];
@@ -118,16 +126,33 @@ function gerarRotatividade() {
         i++;
     }
 
-    // Renderizar
+    renderizar(dist);
+    exibirHistorico(estadoAtual);
+}
+
+function renderizar(dist) {
     document.getElementById('d-pesca').innerText = "SAMUEL";
     idsGiro.forEach(id => {
         document.getElementById(id).innerText = dist[id].join(" / ");
     });
 }
 
+function exibirHistorico(hist) {
+    const log = document.getElementById('log-historico');
+    if (!hist || Object.keys(hist).length === 0 || hist['e1'] === "---") return;
+    
+    let texto = "";
+    for (let id in hist) {
+        let label = document.querySelector(`#${id}`).previousElementSibling.innerText;
+        texto += `<b>${label}:</b> ${hist[id]} | `;
+    }
+    log.innerHTML = texto;
+}
+
 window.onload = () => {
     iniciarRelogio();
-    gerarRotatividade();
+    const salvo = JSON.parse(localStorage.getItem('giroAnteriorLinhaC'));
+    if(salvo) exibirHistorico(salvo);
 };
 </script>
 </body>
