@@ -23,9 +23,9 @@
         .card-info { font-size: 10px; color: #666; font-weight: 800; margin-bottom: 4px; text-transform: uppercase; }
         .nome-colaborador { color: #1a1a1a; font-size: 16px; font-weight: bold; }
 
-        .card-gm { border-left: 10px solid #77dd77; }    /* Verde Médio */
-        .card-pesca { border-left: 10px solid #2d3277; } /* Azul Escuro */
-        .card-cat { border-left: 10px solid #f0ad4e; }   /* Laranja Médio */
+        .card-gm { border-left: 10px solid #77dd77; }
+        .card-pesca { border-left: 10px solid #2d3277; }
+        .card-cat { border-left: 10px solid #f0ad4e; }
 
         button { background: #2d3277; color: white; width: 100%; padding: 16px; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 15px; transition: 0.3s; }
         button:hover { background: #1c204d; }
@@ -74,12 +74,12 @@
 
     <div class="historico-box">
         <div class="historico-titulo">📝 Histórico do Último Giro:</div>
-        <div id="log-historico">Nenhum giro anterior salvo.</div>
+        <div id="log-historico">Aguardando primeiro giro para registrar histórico...</div>
     </div>
 </div>
 
 <script>
-const grupoA = ["Isac Damasceno", "Alana", "Liliane", "Maycon", "Petterson", "Thais Virginio", "Tati", "Thais Nunes"];
+const grupoA = ["Isac damasceno", "alana", "Liliane", "Maycon", "Petterson", "Thais Virginio", "Tati", "Thais Nunes"];
 const grupoB = ["Alex", "Leticia Ingrid", "Laura", "Pamela ", "Clayton", "Isaac de Araujo", "Thais Lopes"];
 const idsGiro = ['e1', 'e2', 'e3', 'e4', 'e5', 'd2', 'd3', 'd4', 'd5', 'd6'];
 
@@ -91,12 +91,19 @@ function iniciarRelogio() {
 }
 
 function gerarRotatividade() {
-    // Captura o que está na tela agora para salvar como histórico
-    let estadoAtual = {};
+    // Salva o que está atualmente na tela como histórico antes de mudar
+    let estadoParaLog = {};
+    let temDados = false;
     idsGiro.forEach(id => {
-        estadoAtual[id] = document.getElementById(id).innerText;
+        let val = document.getElementById(id).innerText;
+        if(val !== "---") temDados = true;
+        estadoParaLog[id] = val;
     });
-    localStorage.setItem('giroAnteriorLinhaC', JSON.stringify(estadoAtual));
+
+    if(temDados) {
+        localStorage.setItem('giroAnteriorLinhaC', JSON.stringify(estadoParaLog));
+        exibirHistorico(estadoParaLog);
+    }
 
     let a = [...grupoA].sort(() => Math.random() - 0.5);
     let b = [...grupoB].sort(() => Math.random() - 0.5);
@@ -104,21 +111,17 @@ function gerarRotatividade() {
     let dist = {};
     idsGiro.forEach(id => dist[id] = []);
 
-    // 1. Tati sozinha (Grupo A)
     const idTati = idsGiro[Math.floor(Math.random() * idsGiro.length)];
     dist[idTati].push("Tati");
     a = a.filter(n => n !== "Tati");
 
-    // 2. Intercalar: 1 do Grupo A em cada bancada (exceto Tati)
     const restoA = idsGiro.filter(id => id !== idTati);
     restoA.forEach(id => { if(a.length > 0) dist[id].push(a.pop()); });
 
-    // 3. Grupo B preenche os espaços vazios primeiro (Garante que todas fiquem ocupadas)
     idsGiro.forEach(id => {
         if(dist[id].length === 0 && b.length > 0) dist[id].push(b.pop());
     });
 
-    // 4. Grupo B forma duplas com o restante (Intercalado)
     let i = 0;
     while(b.length > 0) {
         let idAlvo = restoA[i % restoA.length];
@@ -126,8 +129,9 @@ function gerarRotatividade() {
         i++;
     }
 
+    // Renderiza o novo giro e salva como atual
     renderizar(dist);
-    exibirHistorico(estadoAtual);
+    localStorage.setItem('giroAtualLinhaC', JSON.stringify(dist));
 }
 
 function renderizar(dist) {
@@ -139,7 +143,7 @@ function renderizar(dist) {
 
 function exibirHistorico(hist) {
     const log = document.getElementById('log-historico');
-    if (!hist || Object.keys(hist).length === 0 || hist['e1'] === "---") return;
+    if (!hist || Object.keys(hist).length === 0) return;
     
     let texto = "";
     for (let id in hist) {
@@ -151,8 +155,18 @@ function exibirHistorico(hist) {
 
 window.onload = () => {
     iniciarRelogio();
-    const salvo = JSON.parse(localStorage.getItem('giroAnteriorLinhaC'));
-    if(salvo) exibirHistorico(salvo);
+    
+    // Tenta carregar o giro atual salvo
+    const atual = JSON.parse(localStorage.getItem('giroAtualLinhaC'));
+    const anterior = JSON.parse(localStorage.getItem('giroAnteriorLinhaC'));
+
+    if(atual) {
+        renderizar(atual);
+        if(anterior) exibirHistorico(anterior);
+    } else {
+        // Se for a primeira vez absoluta, já faz um giro para não vir vazio
+        gerarRotatividade();
+    }
 };
 </script>
 </body>
