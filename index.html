@@ -1,3 +1,4 @@
+HTML
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -26,12 +27,12 @@
         .card-gm { border-left: 10px solid #77dd77; }
         .card-pesca { border-left: 10px solid #2d3277; }
         .card-cat { border-left: 10px solid #f0ad4e; }
+        .card-vaga { border-left: 10px solid #ccc; background-color: #fafafa; } /* Estilo para bancada reservada */
 
         button { background: #2d3277; color: white; width: 100%; padding: 16px; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 15px; transition: 0.3s; }
         button:hover { background: #1c204d; }
 
         .historico-box { margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ccc; font-size: 11px; color: #555; line-height: 1.6; }
-        .historico-titulo { font-weight: bold; margin-bottom: 8px; color: #2d3277; text-transform: uppercase; border-bottom: 1px solid #ddd; padding-bottom: 4px; }
     </style>
 </head>
 <body>
@@ -65,23 +66,25 @@
             <div class="card card-cat"><div class="card-info">BANCADA 02 (CAT - Alimento / Saúde)</div><div class="nome-colaborador" id="d2">---</div></div>
             <div class="card card-cat"><div class="card-info">BANCADA 03 (CAT - Cosmético / Mapa)</div><div class="nome-colaborador" id="d3">---</div></div>
             <div class="card card-cat"><div class="card-info">BANCADA 04 (CAT - HV / Saneantes)</div><div class="nome-colaborador" id="d4">---</div></div>
-            <div class="card card-gm"><div class="card-info">BANCADA 05 (GM)</div><div class="nome-colaborador" id="d5">---</div></div>
-            <div class="card card-gm"><div class="card-info">BANCADA 06 (GM)</div><div class="nome-colaborador" id="d6">---</div></div>
+            <div class="card card-vaga"><div class="card-info">BANCADA 05 (RESERVADA NOVOS)</div><div class="nome-colaborador" id="d5">---</div></div>
+            <div class="card card-vaga"><div class="card-info">BANCADA 06 (RESERVADA NOVOS)</div><div class="nome-colaborador" id="d6">---</div></div>
         </div>
     </div>
 
     <button onclick="gerarRotatividade()">Girar Rotatividade 🔄</button>
 
     <div class="historico-box">
-        <div class="historico-titulo">📝 Histórico do Último Giro:</div>
-        <div id="log-historico">Aguardando primeiro giro para registrar histórico...</div>
+        <strong>📝 Histórico do Último Giro:</strong><br>
+        <span id="log-historico">Aguardando giro...</span>
     </div>
 </div>
 
 <script>
-const grupoA = ["Isac Damasceno", "Alana", "Maycon", "Karol Rocha", "Tati", "Thais Nunes"];
-const grupoB = ["Alex", "Leticia Ingrid", "Laura", "Pamela ", "Isaac de Araujo", "Thais Lopes"];
-const idsGiro = ['e1', 'e2', 'e3', 'e4', 'e5', 'd2', 'd3', 'd4', 'd5', 'd6'];
+const grupoA = ["Isac Damasceno", "Alana", "Karol Rocha", "Maycon", "Tati", "Thais Nunes"];
+const grupoB = ["Alex", "Leticia Ingrid", "Laura", "Pamela", "Jhonatha Benhur", "Isaac de Araujo", "Thais Lopes"];
+
+// Bancadas que entram no giro (8 bancadas para 15 pessoas)
+const idsGiro = ['e1', 'e2', 'e3', 'e4', 'e5', 'd2', 'd3', 'd4'];
 
 function iniciarRelogio() {
     setInterval(() => {
@@ -91,37 +94,35 @@ function iniciarRelogio() {
 }
 
 function gerarRotatividade() {
-    // Salva o que está atualmente na tela como histórico antes de mudar
     let estadoParaLog = {};
-    let temDados = false;
-    idsGiro.forEach(id => {
-        let val = document.getElementById(id).innerText;
-        if(val !== "---") temDados = true;
-        estadoParaLog[id] = val;
-    });
-
-    if(temDados) {
+    idsGiro.forEach(id => estadoParaLog[id] = document.getElementById(id).innerText);
+    
+    // Salva histórico se houver dados
+    if(estadoParaLog['e1'] !== "---") {
         localStorage.setItem('giroAnteriorLinhaC', JSON.stringify(estadoParaLog));
         exibirHistorico(estadoParaLog);
     }
 
     let a = [...grupoA].sort(() => Math.random() - 0.5);
     let b = [...grupoB].sort(() => Math.random() - 0.5);
-    
     let dist = {};
     idsGiro.forEach(id => dist[id] = []);
 
+    // 1. Tati sozinha
     const idTati = idsGiro[Math.floor(Math.random() * idsGiro.length)];
     dist[idTati].push("Tati");
     a = a.filter(n => n !== "Tati");
 
+    // 2. Intercalar: 1 do Grupo A em cada bancada (exceto Tati)
     const restoA = idsGiro.filter(id => id !== idTati);
     restoA.forEach(id => { if(a.length > 0) dist[id].push(a.pop()); });
 
+    // 3. Grupo B preenche os espaços vazios primeiro
     idsGiro.forEach(id => {
         if(dist[id].length === 0 && b.length > 0) dist[id].push(b.pop());
     });
 
+    // 4. Grupo B forma duplas com o restante
     let i = 0;
     while(b.length > 0) {
         let idAlvo = restoA[i % restoA.length];
@@ -129,22 +130,24 @@ function gerarRotatividade() {
         i++;
     }
 
-    // Renderiza o novo giro e salva como atual
     renderizar(dist);
     localStorage.setItem('giroAtualLinhaC', JSON.stringify(dist));
 }
 
 function renderizar(dist) {
     document.getElementById('d-pesca').innerText = "SAMUEL";
-    idsGiro.forEach(id => {
+    // Garante que as bancadas dos novos fiquem sempre limpas
+    document.getElementById('d5').innerText = "---";
+    document.getElementById('d6').innerText = "---";
+
+    for(let id in dist) {
         document.getElementById(id).innerText = dist[id].join(" / ");
-    });
+    }
 }
 
 function exibirHistorico(hist) {
     const log = document.getElementById('log-historico');
     if (!hist || Object.keys(hist).length === 0) return;
-    
     let texto = "";
     for (let id in hist) {
         let label = document.querySelector(`#${id}`).previousElementSibling.innerText;
@@ -155,20 +158,15 @@ function exibirHistorico(hist) {
 
 window.onload = () => {
     iniciarRelogio();
-    
-    // Tenta carregar o giro atual salvo
     const atual = JSON.parse(localStorage.getItem('giroAtualLinhaC'));
     const anterior = JSON.parse(localStorage.getItem('giroAnteriorLinhaC'));
-
     if(atual) {
         renderizar(atual);
         if(anterior) exibirHistorico(anterior);
     } else {
-        // Se for a primeira vez absoluta, já faz um giro para não vir vazio
         gerarRotatividade();
     }
 };
 </script>
 </body>
 </html>
-
