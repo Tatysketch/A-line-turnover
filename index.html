@@ -70,27 +70,26 @@
         </div>
     </div>
 
-    <button onclick="executarRodizioCerto()">Girar Rodatividade (E1 -> D5) 🔄</button>
+    <button onclick="executarRodizioCrescente()">Girar Rotatividade 🔄</button>
 
     <div class="historico-box">
-        <strong>📝 Giro de Ontem (Histórico):</strong><br>
+        <strong>📝 Último Giro:</strong><br>
         <span id="log-historico">Aguardando giro...</span>
     </div>
 </div>
 
 <script>
-// A sequência que respeita o fluxo: quem sai da E1 sobe para D5
-const idsSequenciaFisica = ['e5', 'e4', 'e3', 'e2', 'e1', 'd5', 'd6', 'd7'];
+const idsSequencia = ['e1', 'e2', 'e3', 'e4', 'e5', 'd5', 'd6', 'd7'];
 
 let filaDuplas = [
-    "Jhonatha Benhur / Izabela Agnes", // e5
-    "Tati / Thais Lopes",              // e4
-    "Gustavo / Thais Nunes",           // e3
-    "Isac Damasceno / Leticia Ingrid", // e2
-    "Alana / Maycon",               // e1
-    "Karol Rocha / Amanda",            // d5
-    "Debora / Kerollen",                   // d6
-    " Nair / Pamela"                  // d7
+    "Alana / Maycon", 
+    "Isac Damasceno / Leticia Ingrid", 
+    "Gustavo / Thais Nunes", 
+    "Tati / Thais Lopes", 
+    "Jhonatha Benhur / Izabela Agnes", 
+    "Karol Rocha / Amanda", 
+    "Debora / Kerollen", 
+    "Nair / Pamela"
 ];
 
 function iniciarRelogio() {
@@ -100,28 +99,24 @@ function iniciarRelogio() {
     }, 1000);
 }
 
-function executarRodizioCerto() {
+function executarRodizioCrescente() {
     salvarHistorico();
-
-    // Lógica para ser decrescente (3 -> 2 -> 1)
-    // Para a E1 "subir" para a D5, e a E2 ir para a E1, movemos o último para o começo:
     let ultima = filaDuplas.pop();
     filaDuplas.unshift(ultima);
-
     renderizar();
 }
 
 function renderizar() {
-    idsSequenciaFisica.forEach((id, index) => {
+    idsSequencia.forEach((id, index) => {
         document.getElementById(id).innerText = filaDuplas[index];
     });
     document.getElementById('d1').innerText = "ALESANDRO";
-    localStorage.setItem('filaDuplas_Final_V4', JSON.stringify(filaDuplas));
+    localStorage.setItem('filaDuplas_Oficial_V5', JSON.stringify(filaDuplas));
 }
 
 function salvarHistorico() {
     let hist = "";
-    idsSequenciaFisica.forEach((id, index) => {
+    idsSequencia.forEach((id, index) => {
         let label = document.getElementById(id).previousElementSibling.innerText;
         hist += `<b>${label}:</b> ${filaDuplas[index]} | `;
     });
@@ -130,7 +125,7 @@ function salvarHistorico() {
 
 window.onload = () => {
     iniciarRelogio();
-    const salvo = JSON.parse(localStorage.getItem('filaDuplas_Final_V4'));
+    const salvo = JSON.parse(localStorage.getItem('filaDuplas_Oficial_V5'));
     if(salvo) filaDuplas = salvo;
     renderizar();
 };
