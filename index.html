@@ -50,7 +50,7 @@
         <div class="esteira">ESTEIRA LINHA C</div>
         <div class="coluna">
             <h4 style="text-align:center; color:#888;">LADO DIREITO</h4>
-            <div class="card card-pesca"><div class="card-info">BANCADA 01 (PESCA)</div><div class="nome-colaborador" id="d1">ALESANDRO</div></div>
+            <div class="card card-pesca"><div class="card-info">BANCADA 01 (PESCA)</div><div class="nome-colaborador" id="d1">ALESSANDRO</div></div>
             <div class="card card-cat"><div class="card-info">BANCADA 02 (CAT)</div><div class="nome-colaborador">---</div></div>
             <div class="card card-cat"><div class="card-info">BANCADA 03 (CAT)</div><div class="nome-colaborador">---</div></div>
             <div class="card card-cat"><div class="card-info">BANCADA 04 (CAT)</div><div class="nome-colaborador">---</div></div>
@@ -69,36 +69,38 @@
 </div>
 
 <script>
-let duplas = [
+// Sequência: E1->E2->E3->E4->E5 -> (PULA CATs) -> D7->D6->D5 -> (VOLTA) -> E1
+const idsFisicos = ['e1', 'e2', 'e3', 'e4', 'e5', 'd7', 'd6', 'd5'];
+
+let fila = [
     "Alana / Maycon", 
     "Isac Damasceno / Leticia Ingrid", 
     "Gustavo / Thais Nunes", 
     "Tati / Thais Lopes", 
     "Jhonatha Benhur / Izabela Agnes", 
-    "Karol Rocha / Amanda", 
-    "Debora / Kerrollen", 
-    "Nair / Pamela"
+    "Nair / Pamela", 
+    "Debora / Kerollen", 
+    "Karol Rocha / Amanda"
 ];
-
-const bancadas = ['e1', 'e2', 'e3', 'e4', 'e5', 'd5', 'd6', 'd7'];
 
 function girar() {
     salvarHistorico();
-    let ultimaDupla = duplas.pop();
-    duplas.unshift(ultimaDupla);
+    let ultima = fila.pop();
+    fila.unshift(ultima);
     render();
 }
 
 function render() {
-    bancadas.forEach((id, i) => {
-        document.getElementById(id).innerText = duplas[i];
+    idsFisicos.forEach((id, i) => {
+        document.getElementById(id).innerText = fila[i];
     });
-    document.getElementById('d1').innerText = "ALESANDRO";
-    localStorage.setItem('giro_oficial_p2m', JSON.stringify(duplas));
+    // Alessandro FIXO na Pesca (D1)
+    document.getElementById('d1').innerText = "ALEXSANDRO";
+    localStorage.setItem('giro_final_alessandro_fixo', JSON.stringify(fila));
 }
 
 function salvarHistorico() {
-    document.getElementById('log-historico').innerText = duplas.join(" | ");
+    document.getElementById('log-historico').innerText = fila.join(" | ");
 }
 
 function relogio() {
@@ -110,8 +112,8 @@ function relogio() {
 
 window.onload = () => {
     relogio();
-    const salvo = JSON.parse(localStorage.getItem('giro_oficial_p2m'));
-    if(salvo) duplas = salvo;
+    const salvo = JSON.parse(localStorage.getItem('giro_final_alessandro_fixo'));
+    if(salvo) fila = salvo;
     render();
 };
 </script>
