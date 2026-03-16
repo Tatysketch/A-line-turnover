@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -41,66 +41,73 @@
     <div class="colunas-container">
         <div class="coluna">
             <h4 style="text-align:center; color:#888;">LADO ESQUERDO</h4>
-            <div class="card card-gm"><div class="card-info">BANCADA 01 (GM)</div><div class="nome-colaborador" id="e1">---</div></div>
-            <div class="card card-gm"><div class="card-info">BANCADA 02 (GM)</div><div class="nome-colaborador" id="e2">---</div></div>
-            <div class="card card-gm"><div class="card-info">BANCADA 03 (GM)</div><div class="nome-colaborador" id="e3">---</div></div>
-            <div class="card card-gm"><div class="card-info">BANCADA 04 (GM)</div><div class="nome-colaborador" id="e4">---</div></div>
-            <div class="card card-gm"><div class="card-info">BANCADA 05 (GM)</div><div class="nome-colaborador" id="e5">---</div></div>
+            <div class="card card-gm"><div class="card-info">BANCADA 01 (GM)</div><div class="nome-colaborador" id="e1"></div></div>
+            <div class="card card-gm"><div class="card-info">BANCADA 02 (GM)</div><div class="nome-colaborador" id="e2"></div></div>
+            <div class="card card-gm"><div class="card-info">BANCADA 03 (GM)</div><div class="nome-colaborador" id="e3"></div></div>
+            <div class="card card-gm"><div class="card-info">BANCADA 04 (GM)</div><div class="nome-colaborador" id="e4"></div></div>
+            <div class="card card-gm"><div class="card-info">BANCADA 05 (GM)</div><div class="nome-colaborador" id="e5"></div></div>
         </div>
         <div class="esteira">ESTEIRA LINHA C</div>
         <div class="coluna">
             <h4 style="text-align:center; color:#888;">LADO DIREITO</h4>
             <div class="card card-pesca"><div class="card-info">BANCADA 01 (PESCA)</div><div class="nome-colaborador" id="d1">ALESSANDRO</div></div>
-            <div class="card card-cat"><div class="card-info">BANCADA 02 (CAT)</div><div class="nome-colaborador">---</div></div>
-            <div class="card card-cat"><div class="card-info">BANCADA 03 (CAT)</div><div class="nome-colaborador">---</div></div>
-            <div class="card card-cat"><div class="card-info">BANCADA 04 (CAT)</div><div class="nome-colaborador">---</div></div>
-            <div class="card card-gm"><div class="card-info">BANCADA 05 (GM)</div><div class="nome-colaborador" id="d5">---</div></div>
-            <div class="card card-gm"><div class="card-info">BANCADA 06 (GM)</div><div class="nome-colaborador" id="d6">---</div></div>
-            <div class="card card-gm"><div class="card-info">BANCADA 07 (GM)</div><div class="nome-colaborador" id="d7">---</div></div>
+            <div class="card card-cat"><div class="card-info">BANCADA 02 (CAT)</div><div class="nome-colaborador" id="d2">---</div></div>
+            <div class="card card-cat"><div class="card-info">BANCADA 03 (CAT)</div><div class="nome-colaborador" id="d3"></div></div>
+            <div class="card card-cat"><div class="card-info">BANCADA 04 (CAT)</div><div class="nome-colaborador" id="d4"></div></div>
+            <div class="card card-gm"><div class="card-info">BANCADA 05 (GM)</div><div class="nome-colaborador" id="d5">JEFERSON / DIEGO</div></div>
+            <div class="card card-gm"><div class="card-info">BANCADA 06 (GM)</div><div class="nome-colaborador" id="d6">CAIO</div></div>
+            <div class="card card-gm"><div class="card-info">BANCADA 07 (GM)</div><div class="nome-colaborador" id="d7">GUILHERME</div></div>
         </div>
     </div>
 
     <button onclick="girar()">Girar Rotatividade 🔄</button>
 
     <div class="historico-box">
-        <strong>📝 Último Giro:</strong><br>
+        <strong>📝 Histórico de Giro:</strong><br>
         <span id="log-historico">Aguardando giro...</span>
     </div>
 </div>
 
 <script>
-// Sequência: E1->E2->E3->E4->E5 -> (PULA CATs) -> D7->D6->D5 -> (VOLTA) -> E1
-const idsFisicos = ['e1', 'e2', 'e3', 'e4', 'e5', 'd7', 'd6', 'd5'];
-
-let fila = [
-    "Alana / Maycon", 
-    "Isac Damasceno / Leticia Ingrid", 
-    "Gustavo / Thais Nunes", 
-    "Tati / Thais Lopes", 
-    "Jhonatha Benhur / Izabela Agnes", 
-    "Nair / Pamela", 
-    "Debora / Kerollen", 
-    "Karol Rocha / Amanda"
+// Lista das 7 duplas
+let duplas = [
+    "Alana / Paloma",
+    "Isac Damasceno / Leticia Ingrid",
+    "Gustavo / Thais Nunes",
+    "Tati / Thais Lopes",
+    "Jhonatha Benhur / Laura",
+    "Amanda / Isaac de Araujo",
+    "Nair / Karol Rocha"
 ];
+
+// O rodízio agora usa 7 espaços para ninguém ficar de fora
+const idsBancadas = ['e1', 'e2', 'e3', 'e4', 'e5', 'd3', 'd4'];
 
 function girar() {
     salvarHistorico();
-    let ultima = fila.pop();
-    fila.unshift(ultima);
+    let ultima = duplas.pop();
+    duplas.unshift(ultima);
     render();
 }
 
 function render() {
-    idsFisicos.forEach((id, i) => {
-        document.getElementById(id).innerText = fila[i];
+    // Preenche as bancadas do rodízio
+    idsBancadas.forEach((id, i) => {
+        document.getElementById(id).innerText = duplas[i];
     });
-    // Alessandro FIXO na Pesca (D1)
-    document.getElementById('d1').innerText = "ALEXSANDRO";
-    localStorage.setItem('giro_final_alessandro_fixo', JSON.stringify(fila));
+
+    // Bancadas Fixas (Não mudam)
+    document.getElementById('d1').innerText = "ALESSANDRO";
+    document.getElementById('d2').innerText = "---"; // Fica vazio ou como quiser
+    document.getElementById('d5').innerText = "JEFERSON / DIEGO";
+    document.getElementById('d6').innerText = "CAIO";
+    document.getElementById('d7').innerText = "GUILHERME";
+
+    localStorage.setItem('giro_p2m_v15_total', JSON.stringify(duplas));
 }
 
 function salvarHistorico() {
-    document.getElementById('log-historico').innerText = fila.join(" | ");
+    document.getElementById('log-historico').innerText = duplas.join(" | ");
 }
 
 function relogio() {
@@ -112,8 +119,8 @@ function relogio() {
 
 window.onload = () => {
     relogio();
-    const salvo = JSON.parse(localStorage.getItem('giro_final_alessandro_fixo'));
-    if(salvo) fila = salvo;
+    const salvo = JSON.parse(localStorage.getItem('giro_p2m_v15_total'));
+    if(salvo) duplas = salvo;
     render();
 };
 </script>
