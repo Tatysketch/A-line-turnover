@@ -62,49 +62,47 @@
     <button onclick="girar()">Girar Rotatividade 🔄</button>
 
     <div class="historico-box">
-        <strong>📝 Sequência do Rodízio:</strong><br>
-        <span id="log-historico">Aguardando giro...</span>
+        <strong>📝 Ordem Atual:</strong><br>
+        <span id="log-historico">Aguardando primeiro giro...</span>
     </div>
 </div>
 
 <script>
-// Lista das 9 duplas (18 pessoas)
 let duplas = [
+    "Leticia / Diego",
     "Alana / Gustavo",
     "Isac Damasceno / Guilherme",
     "Thais Lopes / Isaac Araujo",
     "Amanda / Kaio",
-    "Letícia / Diego",
-    "Pamela / Jeferson",
     "Thais Nunes / Paloma",
     "Tati / Debora",
-    "Karol Rocha / Cristiane"
+    "Karol Rocha / Cristiane",
+    "Pamela / Jeferson"
 ];
 
-// O rodízio percorre 9 espaços: E1 a E5, D7 a D5 e D2. 
-// D1 (Alex) é fixo. D3 e D4 ficam como sobra se precisar.
+// Mapeamento das bancadas rotativas (D1 é fixo)
 const idsBancadas = ['e1', 'e2', 'e3', 'e4', 'e5', 'd7', 'd6', 'd5', 'd2'];
 
 function girar() {
     salvarHistorico();
-    // Crescente: quem está na última posição da fila vai para a primeira
+    // Giro crescente: o último vai para o começo
     let ultima = duplas.pop();
     duplas.unshift(ultima);
     render();
 }
 
 function render() {
-    // Aloca as duplas nas bancadas do rodízio
+    // Aloca as duplas nas bancadas definidas para o rodízio
     idsBancadas.forEach((id, i) => {
         document.getElementById(id).innerText = duplas[i] || "---";
     });
 
-    // Alessandro (Alex) sempre fixo na Pesca
+    // Fixo (Alessandro)
     document.getElementById('d1').innerText = "ALESSANDRO";
     document.getElementById('d3').innerText = "---";
     document.getElementById('d4').innerText = "---";
 
-    localStorage.setItem('giro_p2m_completo_v18', JSON.stringify(duplas));
+    localStorage.setItem('giro_p2m_v2026', JSON.stringify(duplas));
 }
 
 function salvarHistorico() {
@@ -120,7 +118,7 @@ function relogio() {
 
 window.onload = () => {
     relogio();
-    const salvo = JSON.parse(localStorage.getItem('giro_p2m_completo_v18'));
+    const salvo = JSON.parse(localStorage.getItem('giro_p2m_v2026'));
     if(salvo) duplas = salvo;
     render();
 };
