@@ -20,6 +20,7 @@
         .card-gm { border-left: 10px solid #77dd77; }
         .card-pesca { border-left: 10px solid #2d3277; }
         .card-cat { border-left: 10px solid #f0ad4e; }
+        .cat-tag { font-size: 9px; color: #d35400; font-weight: bold; border-top: 1px solid #eee; margin-top: 5px; padding-top: 2px; }
         button { background: #2d3277; color: white; width: 100%; padding: 16px; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 15px; }
         .historico-box { margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ccc; font-size: 11px; color: #555; }
     </style>
@@ -50,9 +51,9 @@
         <div class="coluna">
             <h4 style="text-align:center; color:#888;">LADO DIREITO</h4>
             <div class="card card-pesca"><div class="card-info">BANCADA 01 (PESCA)</div><div class="nome-colaborador" id="d1">ALESSANDRO</div></div>
-            <div class="card card-cat"><div class="card-info">BANCADA 02 (CAT)</div><div class="nome-colaborador" id="d2"></div></div>
-            <div class="card card-cat"><div class="card-info">BANCADA 03 (CAT)</div><div class="nome-colaborador" id="d3">---</div></div>
-            <div class="card card-cat"><div class="card-info">BANCADA 04 (CAT)</div><div class="nome-colaborador" id="d4">---</div></div>
+            <div class="card card-cat"><div class="card-info">BANCADA 02 (CAT)</div><div class="nome-colaborador" id="d2"></div><div class="cat-tag">ALIMENTO / SAÚDE</div></div>
+            <div class="card card-cat"><div class="card-info">BANCADA 03 (CAT)</div><div class="nome-colaborador" id="d3"></div><div class="cat-tag">COSMÉTICO / MAPA</div></div>
+            <div class="card card-cat"><div class="card-info">BANCADA 04 (CAT)</div><div class="nome-colaborador" id="d4"></div><div class="cat-tag">HV / SANEANTES</div></div>
             <div class="card card-gm"><div class="card-info">BANCADA 05 (GM)</div><div class="nome-colaborador" id="d5"></div></div>
             <div class="card card-gm"><div class="card-info">BANCADA 06 (GM)</div><div class="nome-colaborador" id="d6"></div></div>
             <div class="card card-gm"><div class="card-info">BANCADA 07 (GM)</div><div class="nome-colaborador" id="d7"></div></div>
@@ -62,52 +63,50 @@
     <button onclick="girar()">Girar Rotatividade 🔄</button>
 
     <div class="historico-box">
-        <strong>📝 Ordem Atual:</strong><br>
-        <span id="log-historico">Aguardando primeiro giro...</span>
+        <strong>📝 Ordem do Giro:</strong><br>
+        <span id="log-historico">Clique no botão para iniciar...</span>
     </div>
 </div>
 
 <script>
-let duplas = [
-    "Leticia / Diego",
-    "Alana / Gustavo",
-    "Isac Damasceno / Guilherme",
-    "Thais Lopes / Isaac Araujo",
-    "Pamela / Jeferson ",
-    "Amanda / Kaio",
-    "Thais Nunes / Paloma",
-    "Tati / Debora",
-    "Karol Rocha / Cristiane",
-    
+let listaGiro = [
+    "Alana / Diego",
+    "Amanda / Gustavo",
+    "Isaac de Araújo / Fernanda",
+    "Débora / Isaac Damasceno",
+    "Jeferson / Thaianny",
+    "Kaio / Thais Lopes",
+    "Paloma / Claudio",
+    "Pamela / Miguel",
+    "Karina / Karol Rocha",
+    "Letícia / Tati",
+    "Thais Nunes"
 ];
 
-// Mapeamento das bancadas rotativas (D1 é fixo)
-const idsBancadas = ['e1', 'e2', 'e3', 'e4', 'e5', 'd7', 'd6', 'd5', 'd2'];
+// IDs de todas as bancadas que entram no rodízio (11 no total)
+const idsBancadas = ['e1', 'e2', 'e3', 'e4', 'e5', 'd2', 'd3', 'd4', 'd5', 'd6', 'd7'];
 
 function girar() {
     salvarHistorico();
-    // Giro crescente: o último vai para o começo
-    let ultima = duplas.pop();
-    duplas.unshift(ultima);
+    // Move o último da lista para a primeira posição
+    let ultimo = listaGiro.pop();
+    listaGiro.unshift(ultimo);
     render();
 }
 
 function render() {
-    // Aloca as duplas nas bancadas definidas para o rodízio
     idsBancadas.forEach((id, i) => {
-        document.getElementById(id).innerText = duplas[i] || "---";
+        document.getElementById(id).innerText = listaGiro[i] || "---";
     });
 
-    // Fixo (Alessandro)
-    document.getElementById('d1').innerText = "ALESSANDRO";
-    document.getElementById('d3').innerText = "---";
-    document.getElementById('d4').innerText = "---";
+    // Fixo
+    document.getElementById('d1').innerText = "Laura";
 
-    localStorage.setItem('giro_p2m_v2026', JSON.stringify(duplas));
+    localStorage.setItem('p2m_giro_final_v21', JSON.stringify(listaGiro));
 }
 
 function salvarHistorico() {
-    document.getElementById('log-historico').innerText = duplas.join(" | ");
+    document.getElementById('log-historico').innerText = listaGiro.join(" | ");
 }
 
 function relogio() {
@@ -119,8 +118,8 @@ function relogio() {
 
 window.onload = () => {
     relogio();
-    const salvo = JSON.parse(localStorage.getItem('giro_p2m_v2026'));
-    if(salvo) duplas = salvo;
+    const salvo = JSON.parse(localStorage.getItem('p2m_giro_final_v21'));
+    if(salvo) listaGiro = salvo;
     render();
 };
 </script>
