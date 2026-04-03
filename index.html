@@ -1,66 +1,98 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>P2M - OPERAÇÃO LOGÍSTICA LINHA C</title>
+    <title>BACKOFFICE - GESTÃO TÁTICA P2M</title>
     <style>
-        :root { --primary: #2d327d; --accent: #ffdb00; --bg: #f4f4f9; --card-border: #e0e0e0; --text: #333; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; }
-        .container { max-width: 1100px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        
-        header { border-bottom: 2px solid var(--primary); margin-bottom: 20px; padding-bottom: 10px; }
-        .logo-area { font-weight: 800; font-size: 26px; color: var(--primary); text-align: center; margin-bottom: 10px; }
-        .logo-area span { color: #f5a623; }
-        .info-bar { display: flex; justify-content: space-between; font-size: 13px; font-weight: bold; color: var(--primary); }
-
-        .grid-operacional { display: grid; grid-template-columns: 1fr 40px 1fr; gap: 15px; }
-        .esteira { background: #333; border-radius: 5px; display: flex; align-items: center; justify-content: center; min-height: 550px; }
-        .esteira span { transform: rotate(90deg); color: #fff; font-weight: bold; white-space: nowrap; letter-spacing: 5px; opacity: 0.3; }
-
-        .coluna { display: flex; flex-direction: column; gap: 10px; }
-        .card { 
-            background: #fff; border: 1px solid var(--card-border); 
-            border-left: 8px solid #66bc6b; padding: 10px; border-radius: 6px; position: relative;
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            background: #0a0a0a; 
+            color: #ccc; 
+            padding: 20px; 
+            margin: 0;
         }
-        /* Estilos de Status */
-        .card.fixo { border-left-color: #2d327d; background: #f9f9f9; }
-        .card.rotativo { border-left-color: #f5a623; }
+        .container { max-width: 1100px; margin: auto; }
         
-        .badge-fixo { 
-            position: absolute; top: 5px; right: 5px; background: #2d327d; 
-            color: #fff; font-size: 8px; padding: 2px 6px; border-radius: 10px; 
+        h1 { 
+            color: #d4a017; 
+            border-bottom: 2px solid #333; 
+            padding-bottom: 10px; 
+            text-transform: uppercase;
+            font-weight: 600;
+            font-size: 22px;
+            letter-spacing: 1px;
         }
 
-        .bancada-id { font-size: 10px; font-weight: bold; color: #888; }
-        .nomes { font-size: 15px; font-weight: bold; color: #222; margin: 3px 0; }
-        .cat-tag { font-size: 9px; color: #f5a623; font-weight: bold; text-transform: uppercase; }
+        .layout-bancadas { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 25px; 
+            margin-top: 20px;
+        }
+        
+        .coluna { display: flex; flex-direction: column; gap: 15px; }
+
+        .card-bancada { 
+            background: #111; 
+            padding: 15px; 
+            border-radius: 6px; 
+            border: 1px solid #222;
+            border-left: 5px solid #444;
+            position: relative;
+        }
+
+        /* Estilo para Bancadas Fixas */
+        .fixo { border-left-color: #d4a017; background: #161616; }
+        /* Estilo para Bancadas Rotativas */
+        .rotativo { border-left-color: #555; }
+
+        .tag-fixo { 
+            position: absolute; 
+            top: 10px; 
+            right: 10px; 
+            font-size: 9px; 
+            color: #d4a017; 
+            border: 1px solid #d4a017; 
+            padding: 2px 6px; 
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        .bancada-id { font-size: 11px; color: #666; text-transform: uppercase; margin-bottom: 5px; }
+        .nomes { font-size: 18px; font-weight: bold; color: #eee; }
+        .categoria { font-size: 10px; color: #888; margin-top: 5px; display: block; }
 
         .btn-girar { 
-            grid-column: span 3; margin-top: 20px; background: #2d327d; color: #fff; 
-            border: none; padding: 12px; border-radius: 6px; font-weight: bold; cursor: pointer;
+            background: #d4a017; 
+            color: #000; 
+            border: none; 
+            padding: 15px; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            font-weight: bold; 
+            width: 100%; 
+            margin-top: 30px;
+            text-transform: uppercase;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <header>
-        <div class="logo-area">🤝 <span>P2M</span> - RODÍZIO ESTRATÉGICO</div>
-        <div class="info-bar">
-            <div>LINHA C - GESTÃO TÁTICA</div>
-            <div id="relogio">--:--:--</div>
-        </div>
-    </header>
+    <h1>PAINEL DE ROTATIVIDADE // LINHA C</h1>
 
-    <div class="grid-operacional">
-        <div class="coluna" id="lado-esq"></div>
-        <div class="esteira"><span>ESTEIRA CENTRAL</span></div>
-        <div class="coluna" id="lado-dir"></div>
-        <button class="btn-girar" onclick="girar()">Girar Duplas Rotativas (E1-E4) 🔄</button>
+    <div class="layout-bancadas">
+        <div class="coluna" id="lado-esq">
+            </div>
+
+        <div class="coluna" id="lado-dir">
+            </div>
     </div>
+
+    <button class="btn-girar" onclick="girar()">🔄 Girar Rodízio (E1 - E4)</button>
 </div>
 
 <script>
-    // Apenas estas 4 duplas entram no rodízio do lado esquerdo
+    // As 4 duplas que rodam no lado esquerdo
     const duplasRotativas = [
         "Pietra / Thayanny", 
         "Karina / Thais Lopes", 
@@ -68,61 +100,64 @@
         "Leticia / Débora"
     ];
 
-    let offset = parseInt(localStorage.getItem('p2m_rot_offset')) || 0;
+    let offset = parseInt(localStorage.getItem('p2m_offset_rodizio')) || 0;
 
     function renderizar() {
         const esq = document.getElementById('lado-esq');
         const dir = document.getElementById('lado-dir');
         esq.innerHTML = ""; dir.innerHTML = "";
 
-        // LADO ESQUERDO (E1 a E5)
-        const rotativasNoMomento = [...duplasRotativas];
-        for(let i=0; i<offset; i++) rotativasNoMomento.push(rotativasNoMomento.shift());
+        // --- LADO ESQUERDO ---
+        const rotativas = [...duplasRotativas];
+        for(let i=0; i<offset; i++) rotativas.push(rotativas.shift());
 
-        // E1 a E4 - Rotativo
-        for(let i=1; i<=4; i++) {
+        // E1 ao E4 (Rotativo)
+        for(let i=0; i<4; i++) {
             esq.innerHTML += `
-                <div class="card rotativo">
-                    <div class="bancada-id">BANCADA E${i} - GM</div>
-                    <div class="nomes">${rotativasNoMomento[i-1]}</div>
+                <div class="card-bancada rotativo">
+                    <div class="bancada-id">Bancada E${i+1}</div>
+                    <div class="nomes">${rotativas[i]}</div>
+                    <span class="categoria">GM - ROTATIVO</span>
                 </div>`;
         }
-        // E5 - Fixo Gustavo
+
+        // E5 (Fixo - Gustavo)
         esq.innerHTML += `
-            <div class="card fixo">
-                <span class="badge-fixo">FIXO</span>
-                <div class="bancada-id">BANCADA E5 - GM</div>
+            <div class="card-bancada fixo">
+                <span class="tag-fixo">Fixo</span>
+                <div class="bancada-id">Bancada E5</div>
                 <div class="nomes">GUSTAVO</div>
+                <span class="categoria">GM</span>
             </div>`;
 
-        // LADO DIREITO (D1 a D7)
-        const layoutDir = [
-            { id: "D1", nome: "LAURA", status: "FIXO", label: "PESCA", tipo: "fixo" },
-            { id: "D2", nome: "TATY / ALANA", status: "FIXO", label: "CAT - ALIMENTO / SAÚDE", tipo: "fixo" },
-            { id: "D3", nome: "TATY / ALANA", status: "FIXO", label: "CAT - COSMÉTICO / MAPA", tipo: "fixo" },
-            { id: "D4", nome: "TATY / ALANA", status: "FIXO", label: "CAT - HV / SANEANTES", tipo: "fixo" },
-            { id: "D5", nome: "ISAAC ARAÚJO", status: "FIXO", label: "GM", tipo: "fixo" },
-            { id: "D6", nome: "JEFFERSON", status: "FIXO", label: "GM", tipo: "fixo" },
-            { id: "D7", nome: "ISAC DAMASCENO", status: "FIXO", label: "GM", tipo: "fixo" }
+        // --- LADO DIREITO (Tudo Fixo) ---
+        const bancadasDir = [
+            { id: "D1", nome: "LAURA", cat: "PESCA" },
+            { id: "D2", nome: "TATY / ALANA", cat: "CAT - ALIMENTO / SAÚDE" },
+            { id: "D3", nome: "TATY / ALANA", cat: "CAT - COSMÉTICO / MAPA" },
+            { id: "D4", nome: "TATY / ALANA", cat: "CAT - HV / SANEANTES" },
+            { id: "D5", nome: "ISAAC ARAÚJO", cat: "GM" },
+            { id: "D6", nome: "JEFFERSON", cat: "GM" },
+            { id: "D7", nome: "ISAC DAMASCENO", cat: "GM" }
         ];
 
-        layoutDir.forEach(b => {
+        bancadasDir.forEach(b => {
             dir.innerHTML += `
-                <div class="card ${b.tipo}">
-                    <span class="badge-fixo">${b.status}</span>
-                    <div class="bancada-id">BANCADA ${b.id} - ${b.label}</div>
+                <div class="card-bancada fixo">
+                    <span class="tag-fixo">Fixo</span>
+                    <div class="bancada-id">Bancada ${b.id}</div>
                     <div class="nomes">${b.nome}</div>
+                    <span class="categoria">${b.cat}</span>
                 </div>`;
         });
     }
 
     function girar() {
         offset = (offset + 1) % duplasRotativas.length;
-        localStorage.setItem('p2m_rot_offset', offset);
+        localStorage.setItem('p2m_offset_rodizio', offset);
         renderizar();
     }
 
-    setInterval(() => { document.getElementById('relogio').innerText = new Date().toLocaleTimeString(); }, 1000);
     window.onload = renderizar;
 </script>
 </body>
