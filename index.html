@@ -13,7 +13,7 @@
         #relogio { background: #2d3277; color: white; padding: 3px 10px; border-radius: 4px; font-family: monospace; }
         .colunas-container { display: flex; justify-content: space-between; gap: 15px; margin-top: 20px; }
         .coluna { flex: 1; }
-        .esteira { width: 35px; background: #eee; border: 1px solid #ccc; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #666; font-weight: bold; font-size: 11px; writing-mode: vertical-rl; text-orientation: mixed; }
+        .esteira { width: 35px; background: #444; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 11px; writing-mode: vertical-rl; text-orientation: mixed; }
         .card { background: white; border: 1px solid #ddd; border-radius: 6px; padding: 12px; margin-bottom: 10px; min-height: 45px; display: flex; flex-direction: column; justify-content: center; position: relative; }
         .card-info { font-size: 10px; color: #666; font-weight: 800; margin-bottom: 4px; text-transform: uppercase; }
         .nome-colaborador { color: #1a1a1a; font-size: 15px; font-weight: bold; }
@@ -22,7 +22,9 @@
         .card-cat { border-left: 10px solid #f0ad4e; }
         .tag-fixo { position: absolute; top: 5px; right: 8px; font-size: 8px; background: #2d3277; color: white; padding: 2px 6px; border-radius: 3px; font-weight: 800; }
         .cat-tag { font-size: 9px; color: #d35400; font-weight: bold; border-top: 1px solid #eee; margin-top: 5px; padding-top: 2px; }
-        button { background: #ffdb00; color: #2d3277; width: 100%; padding: 16px; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 15px; text-transform: uppercase; }
+        
+        /* BOTÃO VOLTOU PARA O AZUL PADRÃO */
+        button { background: #2d3277; color: white; width: 100%; padding: 16px; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 15px; text-transform: uppercase; }
     </style>
 </head>
 <body>
@@ -62,33 +64,25 @@
         </div>
     </div>
 
-    <button onclick="girar()">Girar Rodízio (E1 - E4) 🔄</button>
+    <button onclick="girar()">Girar Rotatividade (E1-E4) 🔄</button>
 </div>
 
 <script>
-// Lista de duplas - uma para cada bancada (E1 a E4)
-let duplas = [
-    "Pietra / Thayanny", 
-    "Karina / Thais Lopes", 
-    "Pamela / Fernanda", 
-    "Leticia / Débora"
-];
+let listaGiro = ["Pietra / Thayanny", "Karina / Thais Lopes", "Pamela / Fernanda", "Leticia / Débora"];
 
 function girar() {
-    // Pega a última dupla e coloca na frente (sentido horário)
-    let ultima = duplas.pop();
-    duplas.unshift(ultima);
+    listaGiro.push(listaGiro.shift());
     render();
 }
 
 function render() {
-    // Distribui cada dupla em sua respectiva bancada (index 0 vai para E1, index 1 para E2, etc)
-    document.getElementById('e1').innerText = duplas;
-    document.getElementById('e2').innerText = duplas;
-    document.getElementById('e3').innerText = duplas;
-    document.getElementById('e4').innerText = duplas;
+    // Uma dupla para cada bancada, do E1 ao E4
+    document.getElementById('e1').innerText = listaGiro || "---";
+    document.getElementById('e2').innerText = listaGiro || "---";
+    document.getElementById('e3').innerText = listaGiro || "---";
+    document.getElementById('e4').innerText = listaGiro || "---";
     
-    localStorage.setItem('p2m_rodizio_v1', JSON.stringify(duplas));
+    localStorage.setItem('p2m_save_final', JSON.stringify(listaGiro));
 }
 
 function relogio() {
@@ -100,8 +94,8 @@ function relogio() {
 
 window.onload = () => {
     relogio();
-    const salvo = JSON.parse(localStorage.getItem('p2m_rodizio_v1'));
-    if(salvo) duplas = salvo;
+    const salvo = JSON.parse(localStorage.getItem('p2m_save_final'));
+    if(salvo) listaGiro = salvo;
     render();
 };
 </script>
