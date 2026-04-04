@@ -22,8 +22,6 @@
         .card-cat { border-left: 10px solid #f0ad4e; }
         .tag-fixo { position: absolute; top: 5px; right: 8px; font-size: 8px; background: #2d3277; color: white; padding: 2px 6px; border-radius: 3px; font-weight: 800; }
         .cat-tag { font-size: 9px; color: #d35400; font-weight: bold; border-top: 1px solid #eee; margin-top: 5px; padding-top: 2px; }
-        
-        /* BOTÃO VOLTOU PARA O AZUL PADRÃO */
         button { background: #2d3277; color: white; width: 100%; padding: 16px; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 15px; text-transform: uppercase; }
     </style>
 </head>
@@ -68,21 +66,20 @@
 </div>
 
 <script>
-let listaGiro = ["Pietra / Thayanny", "Karina / Thais Lopes", "Pamela / Fernanda", "Leticia / Débora"];
+let duplas = ["Pietra / Thayanny", "Karina / Thais Lopes", "Pamela / Fernanda", "Leticia / Débora"];
 
 function girar() {
-    listaGiro.push(listaGiro.shift());
+    duplas.unshift(duplas.pop());
     render();
 }
 
 function render() {
-    // Uma dupla para cada bancada, do E1 ao E4
-    document.getElementById('e1').innerText = listaGiro || "---";
-    document.getElementById('e2').innerText = listaGiro || "---";
-    document.getElementById('e3').innerText = listaGiro || "---";
-    document.getElementById('e4').innerText = listaGiro || "---";
-    
-    localStorage.setItem('p2m_save_final', JSON.stringify(listaGiro));
+    // Atribui 1 dupla para cada bancada sem repetir
+    document.getElementById('e1').innerText = duplas;
+    document.getElementById('e2').innerText = duplas;
+    document.getElementById('e3').innerText = duplas;
+    document.getElementById('e4').innerText = duplas;
+    localStorage.setItem('p2m_last_save', JSON.stringify(duplas));
 }
 
 function relogio() {
@@ -94,8 +91,8 @@ function relogio() {
 
 window.onload = () => {
     relogio();
-    const salvo = JSON.parse(localStorage.getItem('p2m_save_final'));
-    if(salvo) listaGiro = salvo;
+    const salvo = JSON.parse(localStorage.getItem('p2m_last_save'));
+    if(salvo) duplas = salvo;
     render();
 };
 </script>
