@@ -36,7 +36,7 @@
 
     <div class="info-topo">
         <div>TEAM LEADER: <span class="tl-nome">OSEIAS BUENO</span></div>
-        <div id="relogio">00/00/0000 | 00:00:00</div>
+        <div id="relogio">--/--/---- | --:--:--</div>
     </div>
 
     <div class="colunas-container">
@@ -46,7 +46,7 @@
             <div class="card card-gm"><div class="card-info">BANCADA 02 (GM)</div><div class="nome-colaborador" id="e2"></div></div>
             <div class="card card-gm"><div class="card-info">BANCADA 03 (GM)</div><div class="nome-colaborador" id="e3"></div></div>
             <div class="card card-gm"><div class="card-info">BANCADA 04 (GM)</div><div class="nome-colaborador" id="e4"></div></div>
-            <div class="card card-gm"><span class="tag-fixo">FIXO</span><div class="card-info">BANCADA 05 (GM)</div><div class="nome-colaborador">GUSTAVO</div></div>
+            <div class="card card-gm"><span class="tag-fixo">FIXO</span><div class="card-info">BANCADA 05 (GM)</div><div class="nome-colaborador">Gustavo</div></div>
         </div>
 
         <div class="esteira">ESTEIRA LINHA C</div>
@@ -67,24 +67,27 @@
 </div>
 
 <script>
-// Lista de duplas separadas
-let duplas = ["Pietra / Thayanny", "Karina / Thais Lopes", "Pamela / Fernanda", "Leticia / Débora"];
+// Lista de duplas separadas rigorosamente
+let duplas = [
+    "Pietra / Thayanny", 
+    "Karina / Thais Lopes", 
+    "Pamela / Fernanda", 
+    "Leticia / Débora"
+];
 
 function girar() {
-    // Rotaciona a lista
     duplas.unshift(duplas.pop());
     render();
 }
 
 function render() {
-    // CORREÇÃO: Atribui APENAS UM NOME por ID usando o índice da lista
     document.getElementById('e1').innerText = duplas;
     document.getElementById('e2').innerText = duplas;
     document.getElementById('e3').innerText = duplas;
     document.getElementById('e4').innerText = duplas;
     
-    // Salva a ordem atual
-    localStorage.setItem('p2m_rotacao', JSON.stringify(duplas));
+    // Salva com nova chave para limpar o histórico ruim
+    localStorage.setItem('p2m_vFinal_Real', JSON.stringify(duplas));
 }
 
 function relogio() {
@@ -96,8 +99,10 @@ function relogio() {
 
 window.onload = () => {
     relogio();
-    const salvo = JSON.parse(localStorage.getItem('p2m_rotacao'));
-    if(salvo && salvo.length === 4) duplas = salvo;
+    const salvo = JSON.parse(localStorage.getItem('p2m_vFinal_Real'));
+    if(salvo && salvo.length === 4) {
+        duplas = salvo;
+    }
     render();
 };
 </script>
