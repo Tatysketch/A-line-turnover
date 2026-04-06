@@ -41,24 +41,29 @@
     <div class="colunas-container">
         <div class="coluna">
             <h4 style="text-align:center; color:#888;">LADO ESQUERDO</h4>
-            <div class="card card-gm"><div class="card-info">BANCADA 01 (GM)</div><div class="nome-colaborador" id="e1"></div></div>
-            <div class="card card-gm"><div class="card-info">BANCADA 02 (GM)</div><div class="nome-colaborador" id="e2"></div></div>
-            <div class="card card-gm"><div class="card-info">BANCADA 03 (GM)</div><div class="nome-colaborador" id="e3"></div></div>
-            <div class="card card-gm"><div class="card-info">BANCADA 04 (GM)</div><div class="nome-colaborador" id="e4"></div></div>
-            <div class="card card-gm"><span class="tag-fixo">FIXO</span><div class="card-info">BANCADA 05 (GM)</div><div class="nome-colaborador">GUSTAVO</div></div>
+            <div class="card card-gm"><div class="card-info">BANCADA 01 (GM)</div><div class="nome-colaborador" id="e1">---</div></div>
+            <div class="card card-gm"><div class="card-info">BANCADA 02 (GM)</div><div class="nome-colaborador" id="e2">---</div></div>
+            <div class="card card-gm"><div class="card-info">BANCADA 03 (GM)</div><div class="nome-colaborador" id="e3">---</div></div>
+            <div class="card card-gm"><div class="card-info">BANCADA 04 (GM)</div><div class="nome-colaborador" id="e4">---</div></div>
+            
+            <div class="card card-gm">
+                <span class="tag-fixo">FIXO</span>
+                <div class="card-info">BANCADA 05 (GM)</div>
+                <div class="nome-colaborador">Gustavo</div>
+            </div>
         </div>
 
         <div class="esteira">ESTEIRA LINHA C</div>
 
         <div class="coluna">
             <h4 style="text-align:center; color:#888;">LADO DIREITO</h4>
-            <div class="card card-pesca"><span class="tag-fixo">FIXO</span><div class="card-info">BANCADA 01 (PESCA)</div><div class="nome-colaborador">LAURA</div></div>
-            <div class="card card-cat"><span class="tag-fixo">FIXO</span><div class="card-info">BANCADA 02 (CAT)</div><div class="nome-colaborador">TATY / ALANA</div><div class="cat-tag">ALIMENTO / SAÚDE</div></div>
-            <div class="card card-cat"><span class="tag-fixo">FIXO</span><div class="card-info">BANCADA 03 (CAT)</div><div class="nome-colaborador">TATY / ALANA</div><div class="cat-tag">COSMÉTICO / MAPA</div></div>
-            <div class="card card-cat"><span class="tag-fixo">FIXO</span><div class="card-info">BANCADA 04 (CAT)</div><div class="nome-colaborador">TATY / ALANA</div><div class="cat-tag">HV / SANEANTES</div></div>
-            <div class="card card-gm"><span class="tag-fixo">FIXO</span><div class="card-info">BANCADA 05 (GM)</div><div class="nome-colaborador">ISAAC ARAÚJO</div></div>
-            <div class="card card-gm"><span class="tag-fixo">FIXO</span><div class="card-info">BANCADA 06 (GM)</div><div class="nome-colaborador">JEFFERSON</div></div>
-            <div class="card card-gm"><span class="tag-fixo">FIXO</span><div class="card-info">BANCADA 07 (GM)</div><div class="nome-colaborador">ISAC DAMASCENO</div></div>
+            <div class="card card-pesca"><span class="tag-fixo">FIXO</span><div class="card-info">BANCADA 01 (PESCA)</div><div class="nome-colaborador">Laura</div></div>
+            <div class="card card-cat"><span class="tag-fixo">FIXO</span><div class="card-info">BANCADA 02 (CAT)</div><div class="nome-colaborador">Taty / Alana</div><div class="cat-tag">ALIMENTO / SAÚDE</div></div>
+            <div class="card card-cat"><span class="tag-fixo">FIXO</span><div class="card-info">BANCADA 03 (CAT)</div><div class="nome-colaborador">Taty / Alana</div><div class="cat-tag">COSMÉTICO / MAPA</div></div>
+            <div class="card card-cat"><span class="tag-fixo">FIXO</span><div class="card-info">BANCADA 04 (CAT)</div><div class="nome-colaborador">Taty / Alana</div><div class="cat-tag">HV / SANEANTES</div></div>
+            <div class="card card-gm"><span class="tag-fixo">FIXO</span><div class="card-info">BANCADA 05 (GM)</div><div class="nome-colaborador">Isaac Araújo</div></div>
+            <div class="card card-gm"><span class="tag-fixo">FIXO</span><div class="card-info">BANCADA 06 (GM)</div><div class="nome-colaborador">Jefferson</div></div>
+            <div class="card card-gm"><span class="tag-fixo">FIXO</span><div class="card-info">BANCADA 07 (GM)</div><div class="nome-colaborador">Isac Damasceno</div></div>
         </div>
     </div>
 
@@ -66,20 +71,29 @@
 </div>
 
 <script>
-let duplas = ["Pietra / Thayanny", "Karina / Thais Lopes", "Pamela / Fernanda", "Leticia / Débora"];
+// Apenas as duplas que rodam nas 4 bancadas
+let duplasGiro = [
+    "Pamela / Fernanda", 
+    "Karina / Thais Lopes", 
+    "Pietra  / Thayanny", 
+    "Leticia / Débora"
+];
 
 function girar() {
-    duplas.unshift(duplas.pop());
+    // Rotaciona a lista (quem está em E4 vai para E1)
+    duplasGiro.unshift(duplasGiro.pop());
     render();
 }
 
 function render() {
-    // Atribui 1 dupla para cada bancada sem repetir
-    document.getElementById('e1').innerText = duplas;
-    document.getElementById('e2').innerText = duplas;
-    document.getElementById('e3').innerText = duplas;
-    document.getElementById('e4').innerText = duplas;
-    localStorage.setItem('p2m_last_save', JSON.stringify(duplas));
+    // Atribuição individual para garantir 1 dupla por bancada
+    document.getElementById('e1').innerText = duplasGiro;
+    document.getElementById('e2').innerText = duplasGiro;
+    document.getElementById('e3').innerText = duplasGiro;
+    document.getElementById('e4').innerText = duplasGiro;
+    
+    // Salva o estado atual para não perder ao atualizar a página
+    localStorage.setItem('p2m_giro_set_final', JSON.stringify(duplasGiro));
 }
 
 function relogio() {
@@ -91,8 +105,11 @@ function relogio() {
 
 window.onload = () => {
     relogio();
-    const salvo = JSON.parse(localStorage.getItem('p2m_last_save'));
-    if(salvo) duplas = salvo;
+    // Tenta carregar a última posição salva
+    const salvo = JSON.parse(localStorage.getItem('p2m_giro_set_final'));
+    if(salvo && salvo.length === 4) {
+        duplasGiro = salvo;
+    }
     render();
 };
 </script>
