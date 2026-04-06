@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -41,16 +42,11 @@
     <div class="colunas-container">
         <div class="coluna">
             <h4 style="text-align:center; color:#888;">LADO ESQUERDO</h4>
-            <div class="card card-gm"><div class="card-info">BANCADA 01 (GM)</div><div class="nome-colaborador" id="e1">---</div></div>
-            <div class="card card-gm"><div class="card-info">BANCADA 02 (GM)</div><div class="nome-colaborador" id="e2">---</div></div>
-            <div class="card card-gm"><div class="card-info">BANCADA 03 (GM)</div><div class="nome-colaborador" id="e3">---</div></div>
-            <div class="card card-gm"><div class="card-info">BANCADA 04 (GM)</div><div class="nome-colaborador" id="e4">---</div></div>
-            
-            <div class="card card-gm">
-                <span class="tag-fixo">FIXO</span>
-                <div class="card-info">BANCADA 05 (GM)</div>
-                <div class="nome-colaborador">Gustavo</div>
-            </div>
+            <div class="card card-gm"><div class="card-info">BANCADA 01 (GM)</div><div class="nome-colaborador" id="e1"></div></div>
+            <div class="card card-gm"><div class="card-info">BANCADA 02 (GM)</div><div class="nome-colaborador" id="e2"></div></div>
+            <div class="card card-gm"><div class="card-info">BANCADA 03 (GM)</div><div class="nome-colaborador" id="e3"></div></div>
+            <div class="card card-gm"><div class="card-info">BANCADA 04 (GM)</div><div class="nome-colaborador" id="e4"></div></div>
+            <div class="card card-gm"><span class="tag-fixo">FIXO</span><div class="card-info">BANCADA 05 (GM)</div><div class="nome-colaborador">GUSTAVO</div></div>
         </div>
 
         <div class="esteira">ESTEIRA LINHA C</div>
@@ -67,33 +63,28 @@
         </div>
     </div>
 
-    <button onclick="girar()">Girar Rotatividade (E1-E4) 🔄</button>
+    <button onclick="girar()">Girar Rotatividade 🔄</button>
 </div>
 
 <script>
-// Apenas as duplas que rodam nas 4 bancadas
-let duplasGiro = [
-    "Pamela / Fernanda", 
-    "Karina / Thais Lopes", 
-    "Pietra  / Thayanny", 
-    "Leticia / Débora"
-];
+// Lista de duplas separadas
+let duplas = ["Pietra / Thayanny", "Karina / Thais Lopes", "Pamela / Fernanda", "Leticia / Débora"];
 
 function girar() {
-    // Rotaciona a lista (quem está em E4 vai para E1)
-    duplasGiro.unshift(duplasGiro.pop());
+    // Rotaciona a lista
+    duplas.unshift(duplas.pop());
     render();
 }
 
 function render() {
-    // Atribuição individual para garantir 1 dupla por bancada
-    document.getElementById('e1').innerText = duplasGiro;
-    document.getElementById('e2').innerText = duplasGiro;
-    document.getElementById('e3').innerText = duplasGiro;
-    document.getElementById('e4').innerText = duplasGiro;
+    // CORREÇÃO: Atribui APENAS UM NOME por ID usando o índice da lista
+    document.getElementById('e1').innerText = duplas;
+    document.getElementById('e2').innerText = duplas;
+    document.getElementById('e3').innerText = duplas;
+    document.getElementById('e4').innerText = duplas;
     
-    // Salva o estado atual para não perder ao atualizar a página
-    localStorage.setItem('p2m_giro_set_final', JSON.stringify(duplasGiro));
+    // Salva a ordem atual
+    localStorage.setItem('p2m_rotacao', JSON.stringify(duplas));
 }
 
 function relogio() {
@@ -105,11 +96,8 @@ function relogio() {
 
 window.onload = () => {
     relogio();
-    // Tenta carregar a última posição salva
-    const salvo = JSON.parse(localStorage.getItem('p2m_giro_set_final'));
-    if(salvo && salvo.length === 4) {
-        duplasGiro = salvo;
-    }
+    const salvo = JSON.parse(localStorage.getItem('p2m_rotacao'));
+    if(salvo && salvo.length === 4) duplas = salvo;
     render();
 };
 </script>
