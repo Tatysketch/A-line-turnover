@@ -69,9 +69,8 @@
 
     <button onclick="girar()">GIRAR ROTATIVIDADE 🔄</button>
 </div>
-
 <script>
-// Lista de Giro Ajustada (10 Reps - Isaac removido pois virou fixo na D6)
+// Grupo de Giro: 10 pessoas (Isaac Araújo saiu para ser fixo na D6)
 let repsGiro = [
     "Alana Almeida", "Thaís Lopes", "Débora Cristina", 
     "Letícia Ingrid", "Pamela Micaelly", "Tamyres Alves", 
@@ -80,41 +79,44 @@ let repsGiro = [
 ];
 
 function girar() {
+    // Move o último para o topo da lista
     repsGiro.unshift(repsGiro.pop());
     render();
 }
 
 function render() {
-    // E1 a E4 (8 pessoas)
+    // LADO ESQUERDO: Duplas (Usando índices específicos para não repetir)
     document.getElementById('e1').innerText = repsGiro + " / " + repsGiro;
     document.getElementById('e2').innerText = repsGiro + " / " + repsGiro;
     document.getElementById('e3').innerText = repsGiro + " / " + repsGiro;
     document.getElementById('e4').innerText = repsGiro + " / " + repsGiro;
 
-    // Treinamento D2 (Taty + 9ª pessoa)
-    document.getElementById('d2_treino').innerText = "TATY + " + repsGiro;
-
-    // Apoio no Gustavo E5 (Gustavo + 10ª pessoa)
+    // APOIO GUSTAVO (E5)
     document.getElementById('e5_fixo').innerText = "GUSTAVO + " + repsGiro;
 
-    localStorage.setItem('p2m_gestao_vFinal_OpB', JSON.stringify(repsGiro));
+    // TREINAMENTO TATY (D2)
+    // Note que usamos o ID correto que deve estar no seu HTML
+    if(document.getElementById('d2_treino')){
+        document.getElementById('d2_treino').innerText = "TATY + " + repsGiro;
+    }
+
+    // Salva a posição oficial
+    localStorage.setItem('p2m_gestao_v3_limpa', JSON.stringify(repsGiro));
 }
 
-function relogio() {
-    setInterval(() => {
-        const agora = new Date();
-        document.getElementById('relogio').innerText = agora.toLocaleDateString('pt-BR') + ' | ' + agora.toLocaleTimeString('pt-BR');
-    }, 1000);
-}
-
+// Inicialização
 window.onload = () => {
-    relogio();
-    const salvo = JSON.parse(localStorage.getItem('p2m_gestao_vFinal_OpB'));
+    const salvo = JSON.parse(localStorage.getItem('p2m_gestao_v3_limpa'));
     if(salvo && salvo.length === 10) {
         repsGiro = salvo;
     }
     render();
+    
+    // Relógio
+    setInterval(() => {
+        const agora = new Date();
+        const rel = document.getElementById('relogio');
+        if(rel) rel.innerText = agora.toLocaleDateString('pt-BR') + ' | ' + agora.toLocaleTimeString('pt-BR');
+    }, 1000);
 };
 </script>
-</body>
-</html>
