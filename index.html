@@ -24,7 +24,6 @@
         .card-livre { border-left: 10px solid #ccc; background-color: #fafafa; opacity: 0.6; }
         .tag-status { position: absolute; top: 5px; right: 8px; font-size: 9px; padding: 2px 6px; border-radius: 3px; font-weight: 800; color: white; }
         .fixo { background: #d32f2f; }
-        .treino { background: #2d3277; }
         .vago { background: #999; }
         button { background: #2d3277; color: white; width: 100%; padding: 18px; border: none; border-radius: 10px; font-size: 20px; font-weight: bold; cursor: pointer; margin-top: 20px; text-transform: uppercase; box-shadow: 0 4px #1a1e4d; }
         button:active { box-shadow: 0 2px #1a1e4d; transform: translateY(2px); }
@@ -46,11 +45,11 @@
     <div class="colunas-container">
         <div class="coluna">
             <h4 style="text-align:center; color:#555;">LADO ESQUERDO (GM)</h4>
-            <div class="card card-gm"><div class="card-info">BANCADA 01</div><div class="nome-colaborador" id="e1"></div></div>
-            <div class="card card-gm"><div class="card-info">BANCADA 02</div><div class="nome-colaborador" id="e2"></div></div>
-            <div class="card card-gm"><div class="card-info">BANCADA 03</div><div class="nome-colaborador" id="e3"></div></div>
-            <div class="card card-gm"><div class="card-info">BANCADA 04</div><div class="nome-colaborador" id="e4"></div></div>
-            <div class="card card-gm"><span class="tag-status fixo">FIXO</span><div class="card-info">BANCADA 05</div><div class="nome-colaborador" id="e5_fixo"></div></div>
+            <div class="card card-gm"><div class="card-info">BANCADA 01</div><div class="nome-colaborador" id="e1">--</div></div>
+            <div class="card card-gm"><div class="card-info">BANCADA 02</div><div class="nome-colaborador" id="e2">--</div></div>
+            <div class="card card-gm"><div class="card-info">BANCADA 03</div><div class="nome-colaborador" id="e3">--</div></div>
+            <div class="card card-gm"><div class="card-info">BANCADA 04</div><div class="nome-colaborador" id="e4">--</div></div>
+            <div class="card card-gm"><span class="tag-status fixo">FIXO</span><div class="card-info">BANCADA 05</div><div class="nome-colaborador" id="e5_fixo">--</div></div>
         </div>
 
         <div class="esteira">ESTEIRA CENTRAL</div>
@@ -58,7 +57,7 @@
         <div class="coluna">
             <h4 style="text-align:center; color:#555;">LADO DIREITO (OPERACIONAL)</h4>
             <div class="card card-pesca"><span class="tag-status fixo">FIXO</span><div class="card-info">BANCADA 01 (PESCA)</div><div class="nome-colaborador">RYAN DA SILVA</div></div>
-            <div class="card card-cat"><span class="tag-status treino">TREINAMENTO</span><div class="card-info">BANCADA 02 (CAT)</div><div class="nome-colaborador" id="d2_treino"></div></div>
+            <div class="card card-cat"><span class="tag-status fixo">FIXO</span><div class="card-info">BANCADA 02 (CAT)</div><div class="nome-colaborador" id="d2_fixo">--</div></div>
             <div class="card card-livre"><span class="tag-status vago">LIVRE</span><div class="card-info">BANCADA 03 (CAT)</div><div class="nome-colaborador">DISPONÍVEL</div></div>
             <div class="card card-livre"><span class="tag-status vago">LIVRE</span><div class="card-info">BANCADA 04 (CAT)</div><div class="nome-colaborador">DISPONÍVEL</div></div>
             <div class="card card-gm"><span class="tag-status fixo">FIXO</span><div class="card-info">BANCADA 05 (GM)</div><div class="nome-colaborador">GUILHERME</div></div>
@@ -67,10 +66,10 @@
         </div>
     </div>
 
-    <button onclick="girar()">GIRAR ROTATIVIDADE 🔄</button>
+    <button id="btnGirar">GIRAR ROTATIVIDADE 🔄</button>
 </div>
+
 <script>
-// Grupo de Giro: 10 pessoas (Isaac Araújo saiu para ser fixo na D6)
 let repsGiro = [
     "Alana Almeida", "Thaís Lopes", "Débora Cristina", 
     "Letícia Ingrid", "Pamela Micaelly", "Tamyres Alves", 
@@ -79,44 +78,41 @@ let repsGiro = [
 ];
 
 function girar() {
-    // Move o último para o topo da lista
     repsGiro.unshift(repsGiro.pop());
     render();
 }
 
 function render() {
-    // LADO ESQUERDO: Duplas (Usando índices específicos para não repetir)
+    // Lado Esquerdo
     document.getElementById('e1').innerText = repsGiro + " / " + repsGiro;
     document.getElementById('e2').innerText = repsGiro + " / " + repsGiro;
     document.getElementById('e3').innerText = repsGiro + " / " + repsGiro;
     document.getElementById('e4').innerText = repsGiro + " / " + repsGiro;
-
-    // APOIO GUSTAVO (E5)
     document.getElementById('e5_fixo').innerText = "GUSTAVO + " + repsGiro;
 
-    // TREINAMENTO TATY (D2)
-    // Note que usamos o ID correto que deve estar no seu HTML
-    if(document.getElementById('d2_treino')){
-        document.getElementById('d2_treino').innerText = "TATY + " + repsGiro;
-    }
+    // Lado Direito - Taty Fixo
+    document.getElementById('d2_fixo').innerText = "TATY + " + repsGiro;
 
-    // Salva a posição oficial
-    localStorage.setItem('p2m_gestao_v3_limpa', JSON.stringify(repsGiro));
+    localStorage.setItem('p2m_gestao_v_final_ajustada', JSON.stringify(repsGiro));
 }
 
-// Inicialização
+function relogio() {
+    setInterval(() => {
+        const agora = new Date();
+        document.getElementById('relogio').innerText = agora.toLocaleDateString('pt-BR') + ' | ' + agora.toLocaleTimeString('pt-BR');
+    }, 1000);
+}
+
 window.onload = () => {
-    const salvo = JSON.parse(localStorage.getItem('p2m_gestao_v3_limpa'));
+    relogio();
+    document.getElementById('btnGirar').addEventListener('click', girar);
+    
+    const salvo = JSON.parse(localStorage.getItem('p2m_gestao_v_final_ajustada'));
     if(salvo && salvo.length === 10) {
         repsGiro = salvo;
     }
     render();
-    
-    // Relógio
-    setInterval(() => {
-        const agora = new Date();
-        const rel = document.getElementById('relogio');
-        if(rel) rel.innerText = agora.toLocaleDateString('pt-BR') + ' | ' + agora.toLocaleTimeString('pt-BR');
-    }, 1000);
 };
 </script>
+</body>
+</html>
