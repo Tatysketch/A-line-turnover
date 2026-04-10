@@ -18,17 +18,22 @@
         .card { background: white; border: 1px solid #ddd; border-radius: 8px; padding: 12px; margin-bottom: 12px; min-height: 50px; display: flex; flex-direction: column; justify-content: center; position: relative; }
         .card-info { font-size: 10px; color: #777; font-weight: 800; margin-bottom: 4px; text-transform: uppercase; }
         .nome-colaborador { color: #1a1a1a; font-size: 15px; font-weight: bold; }
-        .card-gm { border-left: 10px solid #77dd77; }
+        
+        /* CORES DE STATUS */
+        .card-gm { border-left: 10px solid #77dd77; } /* Verde - Rotativo */
+        .card-fixo-azul { border-left: 10px solid #2d3277; background-color: #f8f9ff; } /* Azul Escuro - Fixo */
         .card-pesca { border-left: 10px solid #2d3277; }
-        .card-cat { border-left: 10px solid #f0ad4e; }
-        .card-livre { border-left: 10px solid #ccc; background-color: #fafafa; opacity: 0.6; }
+        .card-cat { border-left: 10px solid #2d3277; }
+        
         .tag-status { position: absolute; top: 5px; right: 8px; font-size: 9px; padding: 2px 6px; border-radius: 3px; font-weight: 800; color: white; }
-        .fixo { background: #d32f2f; }
-        .vago { background: #999; }
+        .fixo { background: #2d3277; } /* Azul Escuro */
+        
         button { background: #2d3277; color: white; width: 100%; padding: 18px; border: none; border-radius: 10px; font-size: 20px; font-weight: bold; cursor: pointer; margin-top: 20px; text-transform: uppercase; box-shadow: 0 4px #1a1e4d; }
+        button:active { transform: translateY(2px); box-shadow: 0 2px #1a1e4d; }
     </style>
 </head>
 <body>
+
 <div class="painel">
     <div class="header-container">
         <img src="https://http2.mlstatic.com/frontend-assets/ui-navigation/5.21.22/mercadolibre/logo__small.png" alt="Mercado Livre" class="logo-meli">
@@ -43,24 +48,23 @@
     <div class="colunas-container">
         <div class="coluna">
             <h4 style="text-align:center; color:#555;">LADO ESQUERDO (GM)</h4>
-            <div class="card card-gm"><div class="card-info">BANCADA 01</div><div class="nome-colaborador" id="e1">--</div></div>
-            <div class="card card-gm"><div class="card-info">BANCADA 02</div><div class="nome-colaborador" id="e2">--</div></div>
-            <div class="card card-gm"><div class="card-info">BANCADA 03</div><div class="nome-colaborador" id="e3">--</div></div>
-            <div class="card card-gm"><div class="card-info">BANCADA 04</div><div class="nome-colaborador" id="e4">--</div></div>
-            <div class="card card-gm"><span class="tag-status fixo">FIXO</span><div class="card-info">BANCADA 05</div><div class="nome-colaborador" id="e5_fixo">--</div></div>
+            <div class="card card-gm"><div class="card-info">BANCADA E1</div><div class="nome-colaborador" id="e1">--</div></div>
+            <div class="card card-gm"><div class="card-info">BANCADA E2</div><div class="nome-colaborador" id="e2">--</div></div>
+            <div class="card card-gm"><div class="card-info">BANCADA E3</div><div class="nome-colaborador" id="e3">--</div></div>
+            <div class="card card-gm"><div class="card-info">BANCADA E4</div><div class="nome-colaborador" id="e4">--</div></div>
+            <div class="card card-fixo-azul"><span class="tag-status fixo">FIXO</span><div class="card-info">BANCADA E5</div><div class="nome-colaborador">GUSTAVO</div></div>
+            <div class="card card-fixo-azul"><span class="tag-status fixo">FIXO</span><div class="card-info">BANCADA E6</div><div class="nome-colaborador">TATY</div></div>
         </div>
 
         <div class="esteira">ESTEIRA CENTRAL</div>
 
         <div class="coluna">
             <h4 style="text-align:center; color:#555;">LADO DIREITO (OPERACIONAL)</h4>
-            <div class="card card-pesca"><span class="tag-status fixo">FIXO</span><div class="card-info">BANCADA 01 (PESCA)</div><div class="nome-colaborador">RYAN DA SILVA</div></div>
-            <div class="card card-cat"><span class="tag-status fixo">FIXO</span><div class="card-info">BANCADA 02 (CAT)</div><div class="nome-colaborador" id="d2_fixo">--</div></div>
-            <div class="card card-livre"><span class="tag-status vago">LIVRE</span><div class="card-info">BANCADA 03 (CAT)</div><div class="nome-colaborador">DISPONÍVEL</div></div>
-            <div class="card card-livre"><span class="tag-status vago">LIVRE</span><div class="card-info">BANCADA 04 (CAT)</div><div class="nome-colaborador">DISPONÍVEL</div></div>
-            <div class="card card-gm"><span class="tag-status fixo">FIXO</span><div class="card-info">BANCADA 05 (GM)</div><div class="nome-colaborador">GUILHERME</div></div>
-            <div class="card card-gm"><span class="tag-status fixo">FIXO</span><div class="card-info">BANCADA 06 (GM)</div><div class="nome-colaborador">JEFFERSON / ISAAC ARAÚJO</div></div>
-            <div class="card card-gm"><span class="tag-status fixo">FIXO</span><div class="card-info">BANCADA 07 (GM)</div><div class="nome-colaborador">ISAC</div></div>
+            <div class="card card-pesca"><span class="tag-status fixo">FIXO</span><div class="card-info">BANCADA D1 (PESCA)</div><div class="nome-colaborador">Ryan</div></div>
+            <div class="card card-cat"><span class="tag-status fixo">FIXO</span><div class="card-info">BANCADA D2 (CATEGORIA)</div><div class="nome-colaborador">Tamyres / Pietra</div></div>
+            <div class="card card-fixo-azul"><span class="tag-status fixo">FIXO</span><div class="card-info">BANCADA D5 (GM)</div><div class="nome-colaborador">Jefferson</div></div>
+            <div class="card card-fixo-azul"><span class="tag-status fixo">FIXO</span><div class="card-info">BANCADA D6 (GM)</div><div class="nome-colaborador">Isaac Araújo</div></div>
+            <div class="card card-fixo-azul"><span class="tag-status fixo">FIXO</span><div class="card-info">BANCADA D7 (GM)</div><div class="nome-colaborador">Guilherme</div></div>
         </div>
     </div>
 
@@ -68,37 +72,33 @@
 </div>
 
 <script>
-let repsGiro = [
-    "Karina", "Thaís Lopes",
-    "Débora", "Letícia",
-     "Pamela", "Fernanda", 
-    "Thaianny", "Tamyres", 
-    "Pietra", "Alana",
+// Lista de 8 pessoas para as duplas das bancadas E1, E2, E3, E4
+let colaboradores = [
+    "Karina", "Thaís Lopes",  
+    "Thaianny", "Alana"
+     "Débora", "Letícia",
+    "Pamela", "Marcela", 
 ];
 
 function girar() {
-    repsGiro.unshift(repsGiro.pop());
+    
+    colaboradores.unshift(colaboradores.pop());
     render();
 }
 
 function render() {
-    // Bancadas com duplas
-    document.getElementById('e1').innerText = repsGiro[0] + " / " + repsGiro[1];
-    document.getElementById('e2').innerText = repsGiro[2] + " / " + repsGiro[3];
-    document.getElementById('e3').innerText = repsGiro[4] + " / " + repsGiro[5];
-    document.getElementById('e4').innerTex  = repsGiro[6] + " / " + repsGiro[7];
+   document.getElementById('e1').innerText = colaboradores[0] + " / " + colaboradores[1];
+document.getElementById('e2').innerText = colaboradores[2] + " / " + colaboradores[3];
+document.getElementById('e3').innerText = colaboradores[4] + " / " + colaboradores[5];
+document.getElementById('e4').innerText = colaboradores[6] + " / " + colaboradores[7];
 
-    document.getElementById('e5_fixo').innerText = "GUSTAVO + " + repsGiro;
-    document.getElementById('d2_fixo').innerText = "TATY + " + repsGiro;
-
-localStorage.setItem('p2m_linha_c_final', JSON.stringify(repsGiro));
-    }
+    localStorage.setItem('p2m_rotacao_v4', JSON.stringify(colaboradores));
+}
 
 function relogio() {
     setInterval(() => {
         const agora = new Date();
-        const formatado = agora.toLocaleDateString('pt-BR') + ' | ' + agora.toLocaleTimeString('pt-BR');
-        document.getElementById('relogio').innerText = formatado;
+        document.getElementById('relogio').innerText = agora.toLocaleDateString('pt-BR') + ' | ' + agora.toLocaleTimeString('pt-BR');
     }, 1000);
 }
 
@@ -106,10 +106,9 @@ window.onload = () => {
     relogio();
     document.getElementById('btnGirar').addEventListener('click', girar);
     
-    // Recupera os dados salvos
-    const salvo = JSON.parse(localStorage.getItem('p2m_linha_c_final'));
-    if(salvo && salvo.length === 10) {
-        repsGiro = salvo;
+    const salvo = JSON.parse(localStorage.getItem('p2m_rotacao_v4'));
+    if(salvo && salvo.length === 8) {
+        colaboradores = salvo;
     }
     render();
 };
