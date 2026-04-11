@@ -1,32 +1,29 @@
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>P2M - GESTÃO DE LINHA C</title>
+    <title>P2M - OPERAÇÃO LOGÍSTICA</title>
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; margin: 0; padding: 10px; display: flex; justify-content: center; }
-        .painel { background: white; width: 1150px; border-radius: 12px; padding: 25px; border: 1px solid #dcdcdc; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        .header-container { display: flex; align-items: center; justify-content: center; gap: 20px; border-bottom: 3px solid #2d3277; padding-bottom: 15px; margin-bottom: 20px; }
+        .painel { background: white; width: 1100px; border-radius: 12px; padding: 25px; border: 1px solid #dcdcdc; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .header-container { display: flex; align-items: center; justify-content: center; gap: 20px; border-bottom: 2px solid #2d3277; padding-bottom: 15px; margin-bottom: 20px; }
         .logo-meli { width: 60px; height: auto; }
-        .header-titles h1 { color: #2d3277; margin: 0; font-size: 28px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
-        .info-topo { display: flex; justify-content: space-between; margin-top: 10px; color: #444; font-size: 16px; font-weight: 600; }
+        .header-titles h1 { color: #2d3277; margin: 0; font-size: 26px; font-weight: 800; text-transform: uppercase; }
+        .info-topo { display: flex; justify-content: space-between; margin-top: 10px; color: #444; font-size: 15px; font-weight: 600; }
         .tl-nome { color: #2d3277; border-bottom: 2px solid #ffdb00; }
-        #relogio { background: #2d3277; color: white; padding: 4px 12px; border-radius: 4px; font-family: monospace; }
-        .colunas-container { display: flex; justify-content: space-between; gap: 20px; margin-top: 25px; }
+        #relogio { background: #2d3277; color: white; padding: 3px 10px; border-radius: 4px; font-family: monospace; }
+        .colunas-container { display: flex; justify-content: space-between; gap: 15px; margin-top: 20px; }
         .coluna { flex: 1; }
-        .esteira { width: 40px; background: #333; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 12px; writing-mode: vertical-rl; text-orientation: mixed; border: 2px solid #555; }
-        .card { background: white; border: 1px solid #ddd; border-radius: 8px; padding: 12px; margin-bottom: 12px; min-height: 50px; display: flex; flex-direction: column; justify-content: center; position: relative; }
-        .card-info { font-size: 10px; color: #777; font-weight: 800; margin-bottom: 4px; text-transform: uppercase; }
+        .esteira { width: 35px; background: #444; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 11px; writing-mode: vertical-rl; text-orientation: mixed; }
+        .card { background: white; border: 1px solid #ddd; border-radius: 6px; padding: 12px; margin-bottom: 10px; min-height: 45px; display: flex; flex-direction: column; justify-content: center; position: relative; }
+        .card-info { font-size: 10px; color: #666; font-weight: 800; margin-bottom: 4px; text-transform: uppercase; }
         .nome-colaborador { color: #1a1a1a; font-size: 15px; font-weight: bold; }
-        
-        /* CORES CORRIGIDAS */
-        .card-gm { border-left: 10px solid #77dd77; } /* Verde - Rotativo */
-        .card-fixo-azul { border-left: 10px solid #2d3277; background-color: #f8f9ff; } /* Azul Escuro - Fixo */
-        
-        .tag-status { position: absolute; top: 5px; right: 8px; font-size: 9px; padding: 2px 6px; border-radius: 3px; font-weight: 800; color: white; }
-        .fixo { background: #2d3277; } /* Azul Escuro */
-        
-        button { background: #2d3277; color: white; width: 100%; padding: 18px; border: none; border-radius: 10px; font-size: 20px; font-weight: bold; cursor: pointer; margin-top: 20px; text-transform: uppercase; box-shadow: 0 4px #1a1e4d; }
-        button:active { transform: translateY(2px); box-shadow: 0 2px #1a1e4d; }
+        .card-gm { border-left: 10px solid #77dd77; }
+        .card-pesca { border-left: 10px solid #2d3277; }
+        .card-cat { border-left: 10px solid #f0ad4e; }
+        .tag-fixo { position: absolute; top: 5px; right: 8px; font-size: 8px; background: #2d3277; color: white; padding: 2px 6px; border-radius: 3px; font-weight: 800; }
+        .cat-tag { font-size: 9px; color: #d35400; font-weight: bold; border-top: 1px solid #eee; margin-top: 5px; padding-top: 2px; }
+        button { background: #2d3277; color: white; width: 100%; padding: 16px; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 15px; text-transform: uppercase; }
     </style>
 </head>
 <body>
@@ -34,60 +31,74 @@
 <div class="painel">
     <div class="header-container">
         <img src="https://http2.mlstatic.com/frontend-assets/ui-navigation/5.21.22/mercadolibre/logo__small.png" alt="Mercado Livre" class="logo-meli">
-        <div class="header-titles"><h1>P2M - GESTÃO DE LINHA C</h1></div>
+        <div class="header-titles"><h1>P2M - OPERAÇÃO LOGÍSTICA</h1></div>
     </div>
 
     <div class="info-topo">
         <div>TEAM LEADER: <span class="tl-nome">OSEIAS BUENO</span></div>
-        <div id="relogio">--/--/---- | --:--:--</div>
+        <div id="relogio">00/00/0000 | 00:00:00</div>
     </div>
 
     <div class="colunas-container">
         <div class="coluna">
-            <h4 style="text-align:center; color:#555;">LADO ESQUERDO (GM)</h4>
-            <div class="card card-gm"><div class="card-info">BANCADA E1</div><div class="nome-colaborador" id="e1">--</div></div>
-            <div class="card card-gm"><div class="card-info">BANCADA E2</div><div class="nome-colaborador" id="e2">--</div></div>
-            <div class="card card-gm"><div class="card-info">BANCADA E3</div><div class="nome-colaborador" id="e3">--</div></div>
-            <div class="card card-gm"><div class="card-info">BANCADA E4</div><div class="nome-colaborador" id="e4">--</div></div>
-            <div class="card card-fixo-azul"><span class="tag-status fixo">FIXO</span><div class="card-info">BANCADA E5</div><div class="nome-colaborador">Gustavo</div></div>
+            <h4 style="text-align:center; color:#888;">LADO ESQUERDO</h4>
+            <div class="card card-gm"><div class="card-info">BANCADA 01 (GM)</div><div class="nome-colaborador" id="e1">---</div></div>
+            <div class="card card-gm"><div class="card-info">BANCADA 02 (GM)</div><div class="nome-colaborador" id="e2">---</div></div>
+            <div class="card card-gm"><div class="card-info">BANCADA 03 (GM)</div><div class="nome-colaborador" id="e3">---</div></div>
+            <div class="card card-gm"><div class="card-info">BANCADA 04 (GM)</div><div class="nome-colaborador" id="e4">---</div></div>
+            
+            <div class="card card-gm">
+                <span class="tag-fixo">FIXO</span>
+                <div class="card-info">BANCADA 05 (GM)</div>
+                <div class="nome-colaborador">GUSTAVO</div>
+            </div>
         </div>
 
-        <div class="esteira">ESTEIRA CENTRAL</div>
+        <div class="esteira">ESTEIRA LINHA C</div>
 
         <div class="coluna">
-            <h4 style="text-align:center; color:#555;">LADO DIREITO (OPERACIONAL)</h4>
-            <div class="card card-pesca"><span class="tag-status fixo">FIXO</span><div class="card-info">BANCADA D1 (PESCA)</div><div class="nome-colaborador">Ryan</div></div>
-            <div class="card card-cat"><span class="tag-status fixo">FIXO</span><div class="card-info">BANCADA D2 (CATEGORIA)</div><div class="nome-colaborador">Tamyres / Pietra</div></div>
-            <div class="card card-fixo-azul"><span class="tag-status fixo">FIXO</span><div class="card-info">BANCADA D5 (GM)</div><div class="nome-colaborador">Jeferson</div></div>
-            <div class="card card-fixo-azul"><span class="tag-status fixo">FIXO</span><div class="card-info">BANCADA D6 (GM)</div><div class="nome-colaborador">Isaac Araújo</div></div>
-            <div class="card card-fixo-azul"><span class="tag-status fixo">FIXO</span><div class="card-info">BANCADA D7 (GM)</div><div class="nome-colaborador">Guilherme</div></div>
+            <h4 style="text-align:center; color:#888;">LADO DIREITO</h4>
+            <div class="card card-pesca"><span class="tag-fixo">FIXO</span><div class="card-info">BANCADA 01 (PESCA)</div><div class="nome-colaborador">Ryan</div></div>
+            <div class="card card-cat"><span class="tag-fixo">FIXO</span><div class="card-info">BANCADA 02 (CAT)</div><div class="nome-colaborador">Tamyres/ Pietra / Fernanda</div><div class="cat-tag">ALIMENTO / SAÚDE</div></div>
+            <div class="card card-cat"><span class="tag-fixo">FIXO</span><div class="card-info">BANCADA 03 (CAT)</div><div class="nome-colaborador">Tamyres/ Pietra / Fernanda</div><div class="cat-tag">COSMÉTICO / MAPA</div></div>
+            <div class="card card-cat"><span class="tag-fixo">FIXO</span><div class="card-info">BANCADA 04 (CAT)</div><div class="nome-colaborador">Tamyres/ Pietra / Fernanda</div><div class="cat-tag">HV / SANEANTES</div></div>
+            <div class="card card-gm"><span class="tag-fixo">FIXO</span><div class="card-info">BANCADA 05 (GM)</div><div class="nome-colaborador">Isaac Araujo</div></div>
+            <div class="card card-gm"><span class="tag-fixo">FIXO</span><div class="card-info">BANCADA 06 (GM)</div><div class="nome-colaborador">Jeferson</div></div>
+            <div class="card card-gm"><span class="tag-fixo">FIXO</span><div class="card-info">BANCADA 07 (GM)</div><div class="nome-colaborador">Guilherme</div></div>
         </div>
     </div>
 
-    <button id="btnGirar">GIRAR ROTATIVIDADE 🔄</button>
+    <button onclick="girar()">Girar Rotatividade (E1-E4) 🔄</button>
 </div>
 
 <script>
-// Lista de 8 pessoas para as duplas das bancadas E1, E2, E3, E4
-let colaboradores = [
-    "Karina", "Thaís Lopes",
-    "Thaianny", "Alana"
-    "Débora", "Letícia"
-    "Pamela", "Marcela", 
+// Apenas as duplas que rodam nas 4 bancadas
+let duplasGiro = [
+    "Alana / Thayanny", 
+    "Karina / Thais Lopes", 
+    "Pamela / Marcela", 
+    "Leticia / Débora"
 ];
 
 function girar() {
-    colaboradores.unshift(colaboradores.pop());
+    // Rotaciona a lista (quem está em E4 vai para E1)
+    duplasGiro.unshift(duplasGiro.pop());
     render();
 }
 
 function render() {
-    document.getElementById('e1').innerText = colaboradores + " / " + colaboradores;
-    document.getElementById('e2').innerText = colaboradores + " / " + colaboradores;
-    document.getElementById('e3').innerText = colaboradores + " / " + colaboradores;
-    document.getElementById('e4').innerText = colaboradores + " / " + colaboradores;
+    
+    document.getElementById('e1').innerText = duplasGiro[0];
+    document.getElementById('e2').innerText = duplasGiro[1];
+    document.getElementById('e3').innerText = duplasGiro[2];
+    document.getElementById('e4').innerText = duplasGiro[3];
 
-    localStorage.setItem('p2m_rotacao_v4', JSON.stringify(colaboradores));
+    // Salva o estado atual
+    localStorage.setItem('p2m_giro_set_final', JSON.stringify(duplasGiro));
+}
+    
+    // Salva o estado atual para não perder ao atualizar a página
+    localStorage.setItem('p2m_giro_set_final', JSON.stringify(duplasGiro));
 }
 
 function relogio() {
@@ -99,14 +110,13 @@ function relogio() {
 
 window.onload = () => {
     relogio();
-    document.getElementById('btnGirar').addEventListener('click', girar);
-    
-    const salvo = JSON.parse(localStorage.getItem('p2m_rotacao_v4'));
-    if(salvo && salvo.length === 8) {
-        colaboradores = salvo;
+    // Tenta carregar a última posição salva
+    const salvo = JSON.parse(localStorage.getItem('p2m_giro_set_final'));
+    if(salvo && salvo.length === 4) {
+        duplasGiro = salvo;
     }
     render();
 };
 </script>
 </body>
-</html> diz para mim oq esse codigo consegue fazer
+</html>
